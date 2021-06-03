@@ -1,0 +1,26 @@
+.c-accordion {
+  margin: 20px 0;
+
+  &__header {
+    padding: 20px;
+    background: teal;
+    cursor: pointer;
+  }
+
+  &__content {
+    overflow: hidden;
+    border: none;
+    max-height: 0;
+  }
+
+  &.open {
+    .c-accordion__header {
+      background-color: orange;
+    }
+
+    .c-accordion__content {
+      border: 2px solid orange;
+      max-height: 1000000px;
+    }
+  }
+}

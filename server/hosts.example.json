@@ -1,0 +1,9 @@
+[
+  {
+    "name": "host-name",
+    "endponts": {
+      "health": "http://host-dns/health",
+      "rundown": "http://host-dns/api/0/publication/rundownPlaylists/{\"active\":true}/undefined"
+    }
+  }
+]

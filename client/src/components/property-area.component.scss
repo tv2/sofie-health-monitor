@@ -1,0 +1,29 @@
+.c-property-area {
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 100%;
+  background-color: #aaaaaa;
+  padding: 20px;
+
+  pre {
+   white-space: pre-wrap;       /* css-3 */
+   white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+   white-space: -pre-wrap;      /* Opera 4-6 */
+   white-space: -o-pre-wrap;    /* Opera 7 */
+   word-wrap: break-word;       /* Internet Explorer 5.5+ */
+
+   background-color: #f7d7ad;
+
+   margin: 0;
+   padding: 20px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    td {
+      padding: 10px;
+    }
+  }
+}
