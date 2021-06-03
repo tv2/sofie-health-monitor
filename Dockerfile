@@ -12,7 +12,6 @@ RUN npm run build
 
 WORKDIR /usr/src/app/server
 RUN npm install
-RUN mv ../hosts.json .
 CMD ["npm", "run", "start"]
 
 

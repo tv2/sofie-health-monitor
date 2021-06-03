@@ -6,6 +6,6 @@ export interface HostDefinition {
   },
 }
 
-const hosts = require('../hosts.json')
+const hosts = require('../../hosts.json')
 
 export default hosts as HostDefinition[]
