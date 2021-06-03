@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "install": "(cd server && npm i); (cd client && npm i)",
-    "build": "cd client && npm run build",
+    "build": "cd client && npm run build && cd .. && cd server && npm run build",
     "prestart": "npm run build",
     "start": "cd server && npm run start",
     "dev-client": "cd client && npm run dev",
