@@ -36,11 +36,11 @@ jobs:
       - uses: actions/download-artifact@main
         with:
           name: client artifacts
-          path: client
+          path: client/dist
       - uses: actions/download-artifact@main
         with:
           name: server artifacts
-          path: server
+          path: server/dist
       - name: npm install
         run: |
           npm install
