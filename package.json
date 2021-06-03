@@ -1,0 +1,27 @@
+{
+  "name": "sofie-health-monitor",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "install": "(cd server && npm i); (cd client && npm i)",
+    "build": "cd client && npm run build",
+    "prestart": "npm run build",
+    "start": "cd server && npm run start",
+    "dev-client": "cd client && npm run dev",
+    "dev-server": "cd server && npm run dev",
+    "dev": "concurrently --kill-others \"npm run dev-server\" \"npm run dev-client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tv2/sofie-health-monitor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tv2/sofie-health-monitor/issues"
+  },
+  "homepage": "https://github.com/tv2/sofie-health-monitor#readme",
+  "devDependencies": {
+    "concurrently": "^6.2.0"
+  }
+}
