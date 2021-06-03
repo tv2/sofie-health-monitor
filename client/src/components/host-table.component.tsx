@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import moment from 'moment'
+
 import './host-table.component.scss'
+import './status.scss'
 
 const defaultSortOption = ({ key: key1, host: host1 }: any, { key: key2, host: host2 }: any) => {
   const keyStr1 = key1.replace(/[0-9]/g, '')
@@ -20,12 +23,19 @@ function HostTable(props: any) {
         <tbody>
           { Object.entries(props.hosts)
               .map(([key,host]: [string, any])=> ({ key, host }))
-              .sort(sortOption).map(({ key, host }) => { return (
-                <tr key={key} onClick={() => props.onclick({ key, host })}>
-                  <td key={`${key}-name`}>{ key }</td>
-                  <td key={`${key}-rundown`}>{ host.rundown === null ? 'Loading...' : (host.rundown.actives.length > 0 ? 'ACTIVE' : 'INACTIVE') }</td>
-                  <td key={`${key}-status`}><div className={`c-host-status ${ host.health.status.toLowerCase() }`}>{ host.health === null ? 'Loading...' : host.health.status }</div></td>
-                </tr>
+              .sort(sortOption).map(({ key, host }) => {
+                  const rundown = host.rundown && host.rundown.actives && host.rundown.actives.length > 0 ? host.rundown.actives[0] : {}
+                  return (
+                  <tr key={key} onClick={() => props.onclick({ key, host })}>
+                    <td key={`${key}-name`}>{ key }</td>
+                    <td key={`${key}-updated`}>{ moment(host.health.updated).format('DD-MM-YYYY HH:mm') }</td>
+                    <td key={`${key}-rundown`}>
+                      <div className={`c-rundown-status ${rundown.active ? (rundown.rehearsal ? 'rehearsal' : 'active') : 'inactive'}`}>
+                        { host.rundown === null ? 'Loading...' : (rundown.active ? (rundown.rehearsal ? 'REHEARSAL' : 'ACTIVE') : 'INACTIVE' ) }
+                      </div>
+                    </td>
+                    <td key={`${key}-status`}><div className={`c-host-status ${ host.health.status.toLowerCase() }`}>{ host.health === null ? 'Loading...' : host.health.status }</div></td>
+                  </tr>
               )})
           }
         </tbody>

@@ -6,34 +6,22 @@
     width: 100%;
     border-collapse: collapse;
 
-    tr:hover {
-      background-color: grey;
+    tr
+    tr{
+      &:nth-child(2n) {
+        background-color: lightgrey;
+      }
+
+      &:hover {
+        background-color: grey;
+      }
     }
 
     td {
       padding: 10px;
       cursor: pointer;
+
     }
   }
 }
 
-.c-host-status {
-  background-color: grey;
-  border-radius: 8px;
-  padding: 4px;
-  text-align: center;
-  font-weight: bold;
-
-  &.ok {
-    background-color: lime;
-  }
-
-  &.fail {
-    background-color: crimson;
-  }
-
-  &.warning {
-    background-color: #f5bf42;
-    color: #bd902a;
-  }
-}
