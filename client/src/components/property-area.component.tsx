@@ -109,18 +109,20 @@ function componentProperties(props: any) {
           <tbody>
             { props.host.info.health.components.map((component: any) => {
                 let version = 'unknown'
+                const halfHourAgo = moment().subtract(30, 'minutes').toDate().getTime()
                 try {
                   version = component._internal.versions._process || 'unknown'
                 } finally {}
 
                 let errorRow = null
-                if (component.status !== 'OK') {
+                if (component.status !== 'OK' && component.statusMessage) {
                   errorRow = (
                     <tr key={`${component.instanceId}-error`} className="error">
                       <td key={`${component.instanceId}-error-messaage`} colSpan={4}>{ component.statusMessage }</td>
                     </tr>
                   )
                 }
+                
                 return [
                   <tr key={component.instanceId}>
                     <td key={`${component.instanceId}-name`}>{ component.name }</td>

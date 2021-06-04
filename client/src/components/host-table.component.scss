@@ -6,8 +6,7 @@
     width: 100%;
     border-collapse: collapse;
 
-    tr
-    tr{
+    tr {
       &:nth-child(2n) {
         background-color: lightgrey;
       }
@@ -15,12 +14,18 @@
       &:hover {
         background-color: grey;
       }
+
+      &.current {
+        background-color: #444444;
+        color: white;
+      }
     }
 
     td {
       padding: 10px;
       cursor: pointer;
-
+      text-align: center;
+      font-weight: bold;
     }
   }
 }

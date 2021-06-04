@@ -9,8 +9,9 @@ const defaultSortOption = ({ key: key1, host: host1 }: any, { key: key2, host: h
   const keyStr2 = key2.replace(/[0-9]/g, '')
   const keyDig1 = parseInt(key1.replace(/[^0-9]/g, '') || '0', 10)
   const keyDig2 = parseInt(key2.replace(/[^0-9]/g, '') || '0', 10)
-  if (keyStr1 == keyStr2) return keyDig1 > keyDig2
-  else return keyStr1 > keyStr2
+  if (keyStr1 == keyStr2)
+    return keyDig1 > keyDig2 ? 1 : -1
+  else return keyStr1 > keyStr2 ? 1 : -1
 }
 
 function HostTable(props: any) {
@@ -26,7 +27,7 @@ function HostTable(props: any) {
               .sort(sortOption).map(({ key, host }) => {
                   const rundown = host.rundown && host.rundown.actives && host.rundown.actives.length > 0 ? host.rundown.actives[0] : {}
                   return (
-                  <tr key={key} onClick={() => props.onclick({ key, host })}>
+                  <tr key={key} className={props.current === key ? 'current' : ''} onClick={() => props.onclick({ key, host })}>
                     <td key={`${key}-name`}>{ key }</td>
                     <td key={`${key}-updated`}>{ moment(host.health.updated).format('DD-MM-YYYY HH:mm') }</td>
                     <td key={`${key}-rundown`}>
