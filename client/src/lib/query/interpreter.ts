@@ -11,6 +11,7 @@ const getRundown = (host: any) => host.rundown && host.rundown.actives && host.r
 
 function interpretOption({ key, value }: ASTO, host: any): boolean {
   switch (key) {
+    case 'has':
     case 'is': return interpretOptionIs(value, host)
     case 'not': return interpretOptionNot(value, host)
     case 'n':
