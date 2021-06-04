@@ -29,7 +29,7 @@ function HostTable(props: any) {
                   const currentHost = (props.current || {}).name
                   return (
                   <tr key={key} className={ currentHost === key ? 'current' : ''} onClick={() => props.onclick({ key, host })}>
-                    <td key={`${key}-name`}>{ key } : { (props.current || {}).key }</td>
+                    <td key={`${key}-name`}>{ key }</td>
                     <td key={`${key}-updated`}>{ moment(host.health.updated).format('DD-MM-YYYY HH:mm') }</td>
                     <td key={`${key}-rundown`}>
                       <div className={`c-rundown-status ${rundown.active ? (rundown.rehearsal ? 'rehearsal' : 'active') : 'inactive'}`}>
