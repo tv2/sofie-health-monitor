@@ -57,7 +57,7 @@ function App() {
   useEffect(() => {
     const socket = SocketClient(ENDPOINT)
     socket.on('host-changed', ({ host, state }) => {
-      setHosts((oldHosts: any) => ({ ...oldHosts, [host]: state }))
+      setHosts((oldHosts: any) => ({ ...oldHosts, [host]: { name: host, ...state } }))
     })
     return () => { socket.disconnect() }
   }, [])
@@ -80,7 +80,8 @@ function App() {
   })
 
   const hostOnClick = ({ key, host }: any) => {
-    setCurrentHost({ name: key, info: host })
+    console.log('setting current!!', key)
+    setCurrentHost(() => ({ name: key, info: host }))
   }
 
   return (

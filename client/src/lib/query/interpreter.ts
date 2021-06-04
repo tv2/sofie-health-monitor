@@ -13,13 +13,19 @@ function interpretOption({ key, value }: ASTO, host: any): boolean {
   switch (key) {
     case 'is': return interpretOptionIs(value, host)
     case 'not': return interpretOptionNot(value, host)
+    case 'n':
+    case 'name': return interpretOptionName(value, host)
     default: throw new Error(`Unexpected option ${key}.`)
   }
 }
 
+function interpretOptionName(value: string, host: any) {
+  return host.name.includes(value)
+}
+
 function interpretOptionIs(value: string, host: any): boolean {
   switch (value) {
-    case 'qbox': return true
+    case 'qbox': return host.name.includes('qb')
     case 'ok': return host.health.status === 'OK'
     case 'fail': return host.health.status === 'FAIL'
     case 'warning': return host.health.status === 'WARNING'

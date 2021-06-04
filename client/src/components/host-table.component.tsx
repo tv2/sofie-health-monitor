@@ -26,9 +26,10 @@ function HostTable(props: any) {
               .map(([key,host]: [string, any])=> ({ key, host }))
               .sort(sortOption).map(({ key, host }) => {
                   const rundown = host.rundown && host.rundown.actives && host.rundown.actives.length > 0 ? host.rundown.actives[0] : {}
+                  const currentHost = (props.current || {}).name
                   return (
-                  <tr key={key} className={props.current === key ? 'current' : ''} onClick={() => props.onclick({ key, host })}>
-                    <td key={`${key}-name`}>{ key }</td>
+                  <tr key={key} className={ currentHost === key ? 'current' : ''} onClick={() => props.onclick({ key, host })}>
+                    <td key={`${key}-name`}>{ key } : { (props.current || {}).key }</td>
                     <td key={`${key}-updated`}>{ moment(host.health.updated).format('DD-MM-YYYY HH:mm') }</td>
                     <td key={`${key}-rundown`}>
                       <div className={`c-rundown-status ${rundown.active ? (rundown.rehearsal ? 'rehearsal' : 'active') : 'inactive'}`}>
