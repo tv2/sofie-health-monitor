@@ -22,9 +22,17 @@ const applyOption = ([key, _, value]: any) => ({
   value: value.text,
 }) as AST
 
+const nameLiteral = tok(TK.Value)
+
+const applyNameLiteral = (name: Token<any>): AST => ({
+  type: 'option',
+  key: 'name',
+  value: name.text,
+})
 
 LEAF.setPattern(
   alt(
+    apply(nameLiteral, applyNameLiteral),
     apply(parseOption, applyOption),
     kmid(str('('), EXP, str(')'))
   )
