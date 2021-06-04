@@ -1,6 +1,7 @@
 import { EventConsumer, ConsumerEvent } from '../lib/events'
 import { HostDefinition } from '../hosts'
 import fetch from 'node-fetch'
+import moment from 'moment'
 
 interface ScraperConsumerParameters {
   interval: number
@@ -33,6 +34,7 @@ export class ScraperConsumer extends EventConsumer {
     const sources = [
       ...this.hosts.map((host: any) => fetch(host.endpoints.health)
         .then(data => data.json())
+        .then(data => this.prepareHealthData(data))
         .then(data => emit('data', { type: 'health', host, data }))
         .catch(error => Promise.reject({ type: 'health', error, host }))
       ),
@@ -47,5 +49,18 @@ export class ScraperConsumer extends EventConsumer {
         if (result.status === 'rejected') this.error(`Failed scraping from ${result.reason.host.name}(${result.reason.type}) with:\n  ${result.reason.error}`)
       }))
       .catch(this.log).finally(() => this.log('Scraping done.'))
+  }
+
+  prepareHealthData(health: any) {
+    const notConnectedThreshold = moment().subtract(process.env.NOT_CONNECTED_THRESHOLD || 30, 'minutes').toDate().getTime()
+
+    for (let componentKey in health.components) {
+      if (notConnectedThreshold > moment(health.components[componentKey].updated).toDate().getTime()) {
+        health.components[componentKey].status = 'NOT CONNECTED'
+        health.status = health.status !== 'FAIL' ? 'WARNING' : health.status
+      }
+    }
+
+    return health
   }
 }

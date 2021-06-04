@@ -42,12 +42,12 @@ export class HostStateWatcherConsumer extends EventConsumer {
 
     } else {
       const stateDiff = (diff(this.hostStates[host.name].health, state) || [])
-        .filter(d => !(d.kind === 'E' && (d.path || []).includes('updated')))
+        //.filter(d => !(d.kind === 'E' && (d.path || []).includes('updated')))
       const hasChanges = stateDiff.length > 0
 
       if (hasChanges) {
         this.hostStates[host.name].health = state
-        this.log(`State for ${host.name} (health) has changed.`, stateDiff)
+        this.log(`State for ${host.name} (health) has changed.`)
         emit('state-changed', { host: host.name, state: this.hostStates[host.name] })
       }
     }
