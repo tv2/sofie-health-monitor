@@ -22,7 +22,7 @@ function HostTable(props: any) {
     <div className="c-host-table">
       <table>
         <tbody>
-          { Object.entries(props.hosts)
+          { Object.keys(props.hosts).length === 0 ? (<tr key="no-hosts" className="not-content"><td colSpan={4}>No hosts matched the given query.</td></tr>) : Object.entries(props.hosts)
               .map(([key,host]: [string, any])=> ({ key, host }))
               .sort(sortOption).map(({ key, host }) => {
                   const rundown = host.rundown && host.rundown.actives && host.rundown.actives.length > 0 ? host.rundown.actives[0] : {}
