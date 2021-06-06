@@ -87,7 +87,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header query={query} queryHealth={queryHealth} onQuery={setQuery} onShowDocs={() => setShowDocs(true)} />
+      <Header query={query} queryHealth={queryHealth} onQuery={setQuery} onShowDocs={() => setShowDocs((old:boolean) => !old)} />
       <main>
         <ReflexContainer orientation={splitOrientation}>
           <ReflexElement className="left-pane">

@@ -23,11 +23,13 @@ function interpretOption({ key, value }: ASTOpt, host: any): boolean {
 }
 
 function interpretOptionIs(value: string, host: any): boolean {
- return host.name.includes('qb')
+  switch (value) {
+    case 'qbox': return host.name.includes('qb')
+    default: throw new Error(`Unexpected rundown value '${value}'.`)
+  }
 }
 
 function interpretOptionStatus(value: string, host: any): boolean {
-
   return host.health.status.toLowerCase().indexOf(value.toLowerCase()) === 0
 }
 
