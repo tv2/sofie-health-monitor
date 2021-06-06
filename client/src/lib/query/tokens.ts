@@ -1,11 +1,11 @@
 export enum TokenKind {
   Colon,
-  Comma,
   Key,
   Value,
-  Space,
+  Operator,
   LParen,
   RParen,
+  Space,
 }
 
 export type AbstractSyntaxTreeOption = {
@@ -14,11 +14,11 @@ export type AbstractSyntaxTreeOption = {
   value: any,
 }
 
-export type AbstractSyntaxTreeConditional = {
-  type: 'conditional',
+export type AbstractSyntaxTreeOperator = {
+  type: 'operator',
   key: string,
   left: AbstractSyntaxTree,
   right: AbstractSyntaxTree,
 }
 
-export type AbstractSyntaxTree = AbstractSyntaxTreeOption | AbstractSyntaxTreeConditional
+export type AbstractSyntaxTree = AbstractSyntaxTreeOption | AbstractSyntaxTreeOperator

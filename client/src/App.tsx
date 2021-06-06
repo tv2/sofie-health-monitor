@@ -80,7 +80,6 @@ function App() {
   })
 
   const hostOnClick = ({ key, host }: any) => {
-    console.log('setting current!!', key)
     setCurrentHost(() => ({ name: key, info: host }))
   }
 

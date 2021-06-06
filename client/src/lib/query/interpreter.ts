@@ -1,62 +1,66 @@
-import { TokenKind as TK, AbstractSyntaxTree as AST, AbstractSyntaxTreeOption as ASTO, AbstractSyntaxTreeConditional as ASTC } from './tokens'
+import { TokenKind as TK, AbstractSyntaxTree as AST, AbstractSyntaxTreeOption as ASTOpt, AbstractSyntaxTreeOperator as ASTOpe } from './tokens'
 
 export const interpret = (query: AST, host: any): boolean => {
   switch (query.type) {
-    case 'conditional': return interpretConditional(query, host)
+    case 'operator': return interpretOperator(query, host)
     case 'option': return interpretOption(query, host)
   }
 }
 
 const getRundown = (host: any) => host.rundown && host.rundown.actives && host.rundown.actives.length > 0 ? host.rundown.actives[0] : {}
 
-function interpretOption({ key, value }: ASTO, host: any): boolean {
+function interpretOption({ key, value }: ASTOpt, host: any): boolean {
   switch (key) {
-    case 'has':
-    case 'is': return interpretOptionIs(value, host)
-    case 'not': return interpretOptionNot(value, host)
+    case 's':
+    case 'status': return interpretOptionStatus(value, host)
+    case 'r':
+    case 'rundown': return interpretOptionRundown(value, host)
     case 'n':
     case 'name': return interpretOptionName(value, host)
+    case 'is': return interpretOptionIs(value, host)
     default: throw new Error(`Unexpected option ${key}.`)
   }
+}
+
+function interpretOptionIs(value: string, host: any): boolean {
+ return host.name.includes('qb')
+}
+
+function interpretOptionStatus(value: string, host: any): boolean {
+
+  return host.health.status.toLowerCase().indexOf(value.toLowerCase()) === 0
+}
+
+function interpretOptionRundown(value: string, host: any): boolean {
+  const rundown = getRundown(host)
+  const lcValue = value.toLowerCase()
+  if ('inactive'.indexOf(lcValue)  === 0) return !rundown.active
+  if ('rehearsal'.indexOf(lcValue) === 0) return rundown.active && rundown.rehearsal
+  if ('active'.indexOf(lcValue)    === 0) return rundown.active && !rundown.rehearsal
+  throw new Error(`Unexpected rundown value '${value}'.`)
 }
 
 function interpretOptionName(value: string, host: any) {
   return host.name.includes(value)
 }
 
-function interpretOptionIs(value: string, host: any): boolean {
-  switch (value) {
-    case 'qbox': return host.name.includes('qb')
-    case 'ok': return host.health.status === 'OK'
-    case 'fail': return host.health.status === 'FAIL'
-    case 'warning': return host.health.status === 'WARNING'
-    case 'active': return getRundown(host).active
-    case 'inactive': return !getRundown(host).active
-    case 'rehearsal':
-      const rundown = getRundown(host)
-      return rundown.active && rundown.rehearsal
-    default: throw new Error(`Unexpected value ${value}.`)
-  }
-}
-function interpretOptionNot(value: string, host: any): boolean {
-  switch (value) {
-    default: return !interpretOptionIs(value, host)
-  }
-}
-
-function interpretConditional({ key, left, right }: ASTC, host: any): boolean {
+function interpretOperator({ key, left, right }: ASTOpe, host: any): boolean {
   switch (key) {
-    case 'and': return interpretConditionalAnd(left, right, host)
-    case 'or': return interpretConditionalOr(left, right, host)
-    default: throw new Error(`Unexpected conditional ${key}.`)
+    case 'and': return interpretOperatorAnd(left, right, host)
+    case 'or': return interpretOperatorOr(left, right, host)
+    case '!': return interpretOperatorNot(left, right, host)
+    default: throw new Error(`Unexpected operator ${key}.`)
   }
 }
 
-function interpretConditionalAnd(left: AST, right: AST, host: any): boolean {
+function interpretOperatorAnd(left: AST, right: AST, host: any): boolean {
   return interpret(left, host) && interpret(right, host)
 }
 
-function interpretConditionalOr(left: AST, right: AST, host: any): boolean {
+function interpretOperatorOr(left: AST, right: AST, host: any): boolean {
   return interpret(left, host) || interpret(right, host)
 }
 
+function interpretOperatorNot(left: AST, _: any, host: any): boolean {
+  return !interpret(left, host)
+}

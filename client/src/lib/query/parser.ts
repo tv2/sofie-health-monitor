@@ -13,7 +13,7 @@ const LEAF = rule<TK, AST>()
 const parseOption = seq(
   tok(TK.Key),
   tok(TK.Colon),
-  tok(TK.Value),
+  alt(tok(TK.Value), tok(TK.Key)),
 )
 
 const applyOption = ([key, _, value]: any) => ({
@@ -30,18 +30,28 @@ const applyNameLiteral = (name: Token<any>): AST => ({
   value: name.text,
 })
 
+const applyNot = ([_, value]:[any, AST]): AST => {
+  return {
+    type: 'operator',
+    key: '!',
+    left: value,
+    right: null as unknown as AST, // TODO: Create Unary Operator
+  }
+}
+
 LEAF.setPattern(
   alt(
     apply(nameLiteral, applyNameLiteral),
     apply(parseOption, applyOption),
-    kmid(str('('), EXP, str(')'))
+    kmid(str('('), EXP, str(')')),
+    apply(seq(str('!'), LEAF), applyNot)
   )
 )
 
 // Define top Expr
-const applyExpr = (left: AST, [condOp, right]: [Token<any>, AST]): AST => ({
-  type: 'conditional',
-  key: condOp.text,
+const applyExpr = (left: AST, [op, right]: [Token<any>, AST]): AST => ({
+  type: 'operator',
+  key: op.text,
   left,
   right,
 })
