@@ -60,6 +60,10 @@ function App() {
     const socket = SocketClient(ENDPOINT)
     socket.on('host-changed', ({ host, state }) => {
       setHosts((oldHosts: any) => ({ ...oldHosts, [host]: { name: host, ...state } }))
+      // Update current host info (updates in property area)
+      if (currentHost === host) {
+        setCurrentHost(() => ({ name: host, info: state }))
+      }
     })
     return () => { socket.disconnect() }
   }, [])
