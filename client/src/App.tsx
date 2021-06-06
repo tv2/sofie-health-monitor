@@ -5,6 +5,7 @@ import logo from './logo.svg'
 import HostTable from './components/host-table.component'
 import PropertyArea from './components/property-area.component'
 import Header from './components/header.component'
+import Docs from './components/docs.component'
 
 import * as Query from './lib/query'
 
@@ -29,6 +30,7 @@ function App() {
   const [queryHealth, setQueryHealth] = useState(true) as [any, any]
   const [queryHosts, setQueryHosts] = useState({}) as [any, any]
   const [splitOrientation, setSplitOrientation] = useState('vertical') as [any, any]
+  const [showDocs, setShowDocs] = useState(false) as [any, any]
 
   useEffect(() => {
       if (query.trim() === '') {
@@ -85,7 +87,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header query={query} queryHealth={queryHealth} onQuery={setQuery} />
+      <Header query={query} queryHealth={queryHealth} onQuery={setQuery} onShowDocs={() => setShowDocs(true)} />
       <main>
         <ReflexContainer orientation={splitOrientation}>
           <ReflexElement className="left-pane">
@@ -95,6 +97,14 @@ function App() {
           <ReflexElement className="right-pane">
             <PropertyArea host={currentHost} />
           </ReflexElement>
+          { showDocs &&
+            <ReflexSplitter style={{ display: showDocs ? 'block' : 'none' }} />
+          }
+          { showDocs &&
+            <ReflexElement>
+              <Docs show={true} close={() => setShowDocs(false)} />
+            </ReflexElement>
+          }
         </ReflexContainer>
       </main>
     </div>
