@@ -10,10 +10,12 @@ const EXP1 = rule<TK, AST>()
 const LEAF = rule<TK, AST>()
 
 // Define leafs
+const applyValue = (value: Token<any>) => { console.log('val', value.text.slice(1,-1)); return { ...value, text: value.text[0] === '"' ? value.text.slice(1,-1) : value.text } }
+const parseValue = apply(tok(TK.Value), applyValue)
 const parseOption = seq(
   tok(TK.Key),
   tok(TK.Colon),
-  alt(tok(TK.Value), tok(TK.Key)),
+  alt(parseValue, tok(TK.Key)),
 )
 
 const applyOption = ([key, _, value]: any) => ({
@@ -22,7 +24,7 @@ const applyOption = ([key, _, value]: any) => ({
   value: value.text,
 }) as AST
 
-const nameLiteral = tok(TK.Value)
+const nameLiteral = parseValue
 
 const applyNameLiteral = (name: Token<any>): AST => ({
   type: 'option',
