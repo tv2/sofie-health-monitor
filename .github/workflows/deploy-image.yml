@@ -56,10 +56,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          repository: tv2/sofie-health-monitor
           ref: 'feat/github_packages'
       - uses: oprypin/find-latest-tag@v1
         with:
+          repository: ${{ github.repository }}
           releases-only: true  # We know that all relevant tags have a GitHub release for them.
         id: version  # The step ID to refer to later.
 
