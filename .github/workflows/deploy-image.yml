@@ -65,9 +65,14 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      
+      - name: DEBUG
+        env:
+          CONTENT: ${{ toJSON(steps.docker-tag.outputs) }}
+        run: echo "$CONTENT"
 
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: tv2media/${{ github.repository }}:${{ steps.docker-tag.outputs.tag }}
+          tags: tv2media/${{ github.event.repository.name }}:${{ steps.docker-tag.outputs.tag }}
