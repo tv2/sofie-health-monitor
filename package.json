@@ -1,6 +1,6 @@
 {
   "name": "sofie-health-monitor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "scripts": {
     "install": "(cd server && npm i); (cd client && npm i)",
