@@ -64,6 +64,8 @@ jobs:
         id: version  # The step ID to refer to later.
 
       - run: echo "version ${{ steps.version.outputs.tag }}"
+      - run: echo "$GITHUB_REF"
+      - run: echo "${{ github.ref }}"
           #  build-and-push-image:
           #    runs-on: ubuntu-latest
           #    needs: run-npm-test 
