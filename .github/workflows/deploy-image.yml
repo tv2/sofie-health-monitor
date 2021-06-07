@@ -68,7 +68,7 @@ jobs:
       
       - name: DEBUG
         env:
-          CONTENT: ${{ toJSON(steps.docker-tag.outputs) }}
+          CONTENT: ${{ toJSON(github) }}
         run: echo "$CONTENT"
 
       - name: Build and push
