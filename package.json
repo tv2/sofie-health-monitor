@@ -4,14 +4,14 @@
   "description": "",
   "scripts": {
     "install": "(cd server && npm i); (cd client && npm i)",
-    "build-client": "cd client && npm run build",
-    "build-server": "cd server && npm run build",
-    "build": "npm run build-client && npm run build-server",
+    "build": "cd client && npm run build",
     "prestart": "npm run build",
     "start": "cd server && npm run start",
     "dev-client": "cd client && npm run dev",
     "dev-server": "cd server && npm run dev",
-    "dev": "concurrently --kill-others \"npm run dev-server\" \"npm run dev-client\""
+    "dev": "concurrently --kill-others \"npm run dev-server\" \"npm run dev-client\"",
+    "release": "standard-version",
+    "prepareChangelog": "standard-version --prerelease"
   },
   "repository": {
     "type": "git",
