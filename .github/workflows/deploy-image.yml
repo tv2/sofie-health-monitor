@@ -55,8 +55,6 @@ jobs:
         node-version: [16.x]
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: 'feat/github_packages'
       - uses: oprypin/find-latest-tag@v1
         with:
           repository: ${{ github.repository }}
@@ -64,7 +62,7 @@ jobs:
 
       - run: echo "version ${{ steps.version.outputs.tag }}"
       - run: echo "$GITHUB_REF"
-      - run: echo "${{ github.ref }}"
+      - run: echo "${{github.ref#/refs/heads/}}"
       - run: echo "${{ github.repository }}"
           #  build-and-push-image:
           #    runs-on: ubuntu-latest
