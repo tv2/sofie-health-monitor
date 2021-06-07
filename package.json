@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/tv2/sofie-health-monitor#readme",
   "devDependencies": {
-    "concurrently": "^6.2.0"
+    "concurrently": "^6.2.0",
+    "standard-version": "^9.3.0"
   }
 }
