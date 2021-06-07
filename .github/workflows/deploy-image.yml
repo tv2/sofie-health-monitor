@@ -62,7 +62,6 @@ jobs:
 
       - run: echo "version ${{ steps.version.outputs.tag }}"
       - run: echo "$GITHUB_REF"
-      - run: echo "${{github.ref#/refs/heads/}}"
       - run: echo "${{ github.repository }}"
           #  build-and-push-image:
           #    runs-on: ubuntu-latest
