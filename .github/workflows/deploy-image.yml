@@ -60,7 +60,6 @@ jobs:
       - uses: oprypin/find-latest-tag@v1
         with:
           repository: ${{ github.repository }}
-          releases-only: true  # We know that all relevant tags have a GitHub release for them.
         id: version  # The step ID to refer to later.
 
       - run: echo "version ${{ steps.version.outputs.tag }}"
