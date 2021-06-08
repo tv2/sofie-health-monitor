@@ -82,7 +82,7 @@ function App() {
 
     window.addEventListener('resize', handleResize)
 
-    return () => window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   })
 
   const hostOnClick = ({ key, host }: any) => {
