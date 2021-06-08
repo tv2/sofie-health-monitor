@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.1.0 (2021-06-08)
+
+
+### Features
+
+* develop branch created. Merged github actions and query filter feature branches. ([7b7e050](https://github.com/tv2/sofie-health-monitor/commit/7b7e050fe8767012f765ed9a628a75fefa555698))
+
 ### [1.0.2](https://github.com/tv2/sofie-health-monitor/compare/v1.0.1...v1.0.2) (2021-06-08)
 
 
