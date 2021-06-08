@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.2](https://github.com/tv2/sofie-health-monitor/compare/v1.0.1...v1.0.2) (2021-06-08)
+
+
+### Bug Fixes
+
+* Moved hosts.json location to /data ([f6b8e95](https://github.com/tv2/sofie-health-monitor/commit/f6b8e95c258a683545c237e6c05b52ebcdc012de))
+* reverted to old build scripts in package.json ([76de976](https://github.com/tv2/sofie-health-monitor/commit/76de9768b9dfa40cbb75dfcc18763585fe7c9876))
+
 ### 1.0.1 (2021-06-07)
 
 
