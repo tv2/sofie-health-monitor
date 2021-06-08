@@ -52,7 +52,7 @@ export class ScraperConsumer extends EventConsumer {
   }
 
   prepareHealthData(health: any) {
-    const notConnectedThreshold = moment().subtract(process.env.NOT_CONNECTED_THRESHOLD || 30, 'minutes').toDate().getTime()
+    const notConnectedThreshold = moment().subtract(process.env.NOT_CONNECTED_THRESHOLD || 20, 'minutes').toDate().getTime()
 
     for (let componentKey in health.components) {
       if (notConnectedThreshold > moment(health.components[componentKey].updated).toDate().getTime()) {
