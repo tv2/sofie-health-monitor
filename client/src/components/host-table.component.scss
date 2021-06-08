@@ -7,6 +7,8 @@
     border-collapse: collapse;
 
     tr {
+      cursor: pointer;
+
       &:nth-child(2n) {
         background-color: lightgrey;
       }
@@ -14,6 +16,16 @@
       &:hover {
         background-color: grey;
       }
+
+      &.not-content {
+        cursor: default !important;
+        background-color: transparent !important;
+
+        td {
+          padding: 30px;
+        }
+      }
+
 
       &.current {
         background-color: #444444;
@@ -23,7 +35,6 @@
 
     td {
       padding: 10px;
-      cursor: pointer;
       text-align: center;
       font-weight: bold;
     }

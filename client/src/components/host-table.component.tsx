@@ -22,12 +22,13 @@ function HostTable(props: any) {
     <div className="c-host-table">
       <table>
         <tbody>
-          { Object.entries(props.hosts)
+          { Object.keys(props.hosts).length === 0 ? (<tr key="no-hosts" className="not-content"><td colSpan={4}>No hosts matched the given query.</td></tr>) : Object.entries(props.hosts)
               .map(([key,host]: [string, any])=> ({ key, host }))
               .sort(sortOption).map(({ key, host }) => {
                   const rundown = host.rundown && host.rundown.actives && host.rundown.actives.length > 0 ? host.rundown.actives[0] : {}
+                  const currentHost = (props.current || {}).name
                   return (
-                  <tr key={key} className={props.current === key ? 'current' : ''} onClick={() => props.onclick({ key, host })}>
+                  <tr key={key} className={ currentHost === key ? 'current' : ''} onClick={() => props.onclick({ key, host })}>
                     <td key={`${key}-name`}>{ key }</td>
                     <td key={`${key}-updated`}>{ moment(host.health.updated).format('DD-MM-YYYY HH:mm') }</td>
                     <td key={`${key}-rundown`}>
