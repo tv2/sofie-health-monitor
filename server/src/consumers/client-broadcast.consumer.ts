@@ -22,11 +22,13 @@ export class ClientBroadcastConsumer extends EventConsumer {
     }
   }
 
-  _stateCache(state: any) {
+  _stateCache(states: any) {
     Object.keys(this.clients)
       .filter(clientKey => !this.clients[clientKey].initialized)
       .forEach(clientKey => {
-        this.clients[clientKey].socket.emit('hosts-changed', state)
+        Object.entries(states).forEach(([host,state]:[string, any]) => {
+          this.clients[clientKey].socket.emit('host-changed', { host, state })
+        })
         this.clients[clientKey].initialized = true
       })
   }

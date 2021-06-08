@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './property-area.component.scss'
+import './status.scss'
 import moment from 'moment'
 
 import Accordion from './accordion.component'
@@ -68,8 +69,8 @@ function rundownProperties(props: any) {
             { props.host.info.rundown.actives.map(((rundown: any) => (
                 <tr key={rundown.name}>
                   <td key={`${rundown.name}-name`}>{ rundown.name }</td>
-                  <td key={`${rundown.name}-time`}>{ moment(rundown.startedPlayback).format('DD/MM/YYYY HH:mm:ss:SSS') }</td>
-                  <td key={`${rundown.name}-status`}>{ rundown.rehearsal ? 'REHEARSAL' : 'ACTIVE' }</td>
+                  <td key={`${rundown.name}-time`}>{ moment(rundown.startedPlayback).format('DD-MM-YYYY HH:mm:ss:SSS') }</td>
+                  <td key={`${rundown.name}-status`}><div className={`c-rundown-status ${rundown.active ? (rundown.rehearsal ? 'rehearsal' : 'active') : 'inactive'}`}>{ rundown.rehearsal ? 'REHEARSAL' : 'ACTIVE' }</div></td>
                 </tr>
                 )
               ))
@@ -108,18 +109,30 @@ function componentProperties(props: any) {
           <tbody>
             { props.host.info.health.components.map((component: any) => {
                 let version = 'unknown'
+                const halfHourAgo = moment().subtract(30, 'minutes').toDate().getTime()
                 try {
                   version = component._internal.versions._process || 'unknown'
                 } finally {}
-                return (
+
+                let errorRow = null
+                if (component.status !== 'OK' && component.statusMessage) {
+                  errorRow = (
+                    <tr key={`${component.instanceId}-error`} className="error">
+                      <td key={`${component.instanceId}-error-messaage`} colSpan={4}>{ component.statusMessage }</td>
+                    </tr>
+                  )
+                }
+                
+                return [
                   <tr key={component.instanceId}>
                     <td key={`${component.instanceId}-name`}>{ component.name }</td>
-                    <td key={`${component.instanceId}-rundown`}>{ component.status !== 'OK' ? component.statusMessage : '' }</td>
                     <td key={`${component.instanceId}-version`}>{ version }</td>
-                    <td key={`${component.instanceId}-status`}>{ component.status }</td>
-                  </tr>
-                )
-              })
+                    <td key={`${component.instanceId}-updated`}>{ moment(component.updated).format('DD-MM-YYYY HH:mm') }</td>
+                    <td key={`${component.instanceId}-status`}><div className={`c-host-status ${ component.status.toLowerCase() }`}>{ component.status }</div></td>
+                  </tr>,
+                  errorRow
+                ].filter(x => x)
+              }).flat()
             }
           </tbody>
         </table>

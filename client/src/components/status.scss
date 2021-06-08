@@ -1,0 +1,42 @@
+.c-rundown-status {
+  background-color: grey;
+  color: #222222;
+  border-radius: 8px;
+  padding: 4px 12px;
+  text-align: center;
+  font-weight: bold;
+
+  &.rehearsal {
+    background-color: #cc62cc;
+    color: #570357;
+  }
+
+  &.active {
+    background-color: #db3758;
+    color: #611904;
+  }
+}
+
+.c-host-status {
+  background-color: grey;
+  border-radius: 8px;
+  padding: 4px 12px;
+  text-align: center;
+  font-weight: bold;
+
+  &.ok {
+    background-color: #5acc67;
+    color: #056110;
+  }
+
+  &.fail {
+    background-color: #db3758;
+    color: #611904;
+  }
+
+  &.warning {
+    background-color: #f5bf42;
+    color: #9c751f;
+  }
+}
+

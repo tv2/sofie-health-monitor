@@ -1,0 +1,65 @@
+.c-header {
+  display: flex;
+  background-color: #555555;
+  color: white;
+  padding: 8px;
+  
+  transition: background-color .5s;
+
+  input {
+    flex: 1 1 100%;
+    border: none;
+    border-radius: 4px;
+    background-color: #555555;
+    padding: 8px 12px;
+    color: #aaaaaa;
+    font-weight: bold;
+    outline: none;
+    font-size: 16px;
+    transition: background-color .5s, color .5s;
+
+    &::placeholder {
+      color: #888888;
+      transition: color .2s;
+    }
+
+    &:focus {
+      background-color: grey;
+      color: white;
+
+      &::placeholder {
+        color: #aaaaaa;
+      }
+    }
+  }
+
+  &__docs {
+    flex: 0 1;
+    display: block;
+    padding: 6px 14px;
+
+    a {
+      cursor: pointer;
+    }
+
+    img {
+      height: 28px;
+      opacity: .4;
+      transition: opacity .4s;
+
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  &.bad-query {
+    background-color: #db3758;
+
+    input {
+      background-color: #611904;
+      color: #db3758;
+    }
+  }
+}

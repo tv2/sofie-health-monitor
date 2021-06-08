@@ -6,34 +6,38 @@
     width: 100%;
     border-collapse: collapse;
 
-    tr:hover {
-      background-color: grey;
+    tr {
+      cursor: pointer;
+
+      &:nth-child(2n) {
+        background-color: lightgrey;
+      }
+
+      &:hover {
+        background-color: grey;
+      }
+
+      &.not-content {
+        cursor: default !important;
+        background-color: transparent !important;
+
+        td {
+          padding: 30px;
+        }
+      }
+
+
+      &.current {
+        background-color: #444444;
+        color: white;
+      }
     }
 
     td {
       padding: 10px;
-      cursor: pointer;
+      text-align: center;
+      font-weight: bold;
     }
   }
 }
 
-.c-host-status {
-  background-color: grey;
-  border-radius: 8px;
-  padding: 4px;
-  text-align: center;
-  font-weight: bold;
-
-  &.ok {
-    background-color: lime;
-  }
-
-  &.fail {
-    background-color: crimson;
-  }
-
-  &.warning {
-    background-color: #f5bf42;
-    color: #bd902a;
-  }
-}
