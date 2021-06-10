@@ -90,7 +90,7 @@ function Main() {
                     <ReflexElement key={panel} className={`${panel}-panel`}>
                       <HostPropertyView panel={panel} target={name} />
                     </ReflexElement>,
-                    <ReflexSplitter key={`${panel}-splitter`}/>
+                    <ReflexSplitter propagate={true} key={`${panel}-splitter`}/>
                   ]
               }).flat().slice(0,-1) }
             </ReflexContainer>
