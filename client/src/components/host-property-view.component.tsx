@@ -46,16 +46,16 @@ function HostPropertyView({ panel, target }: any) {
 
           <div className="c-host-property-view__toolbox">
             <div className={`setCurrent ${currentPanel === panel ? 'active' : ''}`}>
-              <a onClick={() => dispatch(setCurrentPropertyPanel(panel))}><img src={CurrentLogo} /></a>
+              <a onClick={() => dispatch(setCurrentPropertyPanel(panel))}><img src={CurrentLogo} alt={ currentPanel === panel ? 'Is active panel' : 'Mark as active panel' } title={ currentPanel === panel ? 'Is active panel' : 'Mark as active panel' } /></a>
             </div>
             <div className="extLink">
-              <a href={`http://${target}.tv2.local`} target="_blank"><img src={ExternalLinkLogo} /></a>
+              <a href={`http://${target}.tv2.local`} target="_blank"><img src={ExternalLinkLogo}  alt="Go to Sofie instance" title="Go to Sofie instance" /></a>
             </div>
             <div className={`toggleRaw ${showRaw ? 'active' : ''}`}>
-              <a onClick={() => setShowRaw((oldRaw: boolean) => !oldRaw)}><img src={RawLogo} /></a>
+              <a onClick={() => setShowRaw((oldRaw: boolean) => !oldRaw)}><img src={RawLogo} alt={`${ showRaw ? 'Hide' : 'Show' } raw JSON`} title={`${ showRaw ? 'Hide' : 'Show' } raw JSON`} /></a>
             </div>
             <div className="closePanel">
-              <a onClick={() => dispatch(removePropertyHost({ panel }))}><img src={CloseLogo} /></a>
+              <a onClick={() => dispatch(removePropertyHost({ panel }))}><img src={CloseLogo} alt="Close panel" title="Close panel" /></a>
             </div>
           </div>
 
