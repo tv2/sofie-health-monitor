@@ -6,10 +6,10 @@ const initialState = {
     key: 'name',
     value: '',
   },
-  sort: {
+  sort: [{
     strategy: 'name',
     asc_order: true,
-  },
+  }],
 }
 
 const reducer = (state: any = initialState, action: any) => {
