@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
+import { useDispatch } from 'react-redux'
 
-import './docs.component.scss'
+import './documentation-view.component.scss'
 
 import CloseLogo from '../../assets/images/x-circle.svg'
 
-function Docs(props: any) {
+function DocumentationView({ show, onClose }: any) {
+  const dispatch = useDispatch()
   return (
-    <div className={`c-docs ${props.show ? 'show' : ''}`}>
-      <div className="c-docs__header">
+    <div className={`c-documentation-view ${show ? 'show' : ''}`}>
+      <div className="c-documentation-view__header">
         <h2>Documentation</h2>
-        <a className="c-docs__close" onClick={props.close}><img src={CloseLogo} /></a>
+        <a className="c-documentation-view__close" onClick={onClose}><img src={CloseLogo} /></a>
       </div>
 
-      <div className="c-docs__content">
+      <div className="c-documentation-view__content">
         <h3>Queries</h3>
         <pre>
           {
@@ -22,7 +24,7 @@ function Docs(props: any) {
           's[tatus]: ok | fail | warning\n' +
           'is: qbox\n' +
           '\n' +
-          '[Operators]' +
+          '[Operators]\n' +
           '!option: Not option\n' +
           'o1 and o2: Both options must be satisfied.\n' +
           'o1 or o2: At least one option must be satisfied.\n' +
@@ -37,4 +39,5 @@ function Docs(props: any) {
   )
 }
 
-export default Docs
+export default DocumentationView
+

@@ -33,17 +33,20 @@
     }
   }
 
-  &__docs {
+  &__documentation {
     flex: 0 1;
     display: block;
     padding: 6px 14px;
+    width: auto;
 
     a {
+      display: block;
       cursor: pointer;
     }
 
     img {
-      height: 28px;
+      min-width: 28px;
+      height: 100%;
       opacity: .4;
       transition: opacity .4s;
 
@@ -63,3 +66,4 @@
     }
   }
 }
+

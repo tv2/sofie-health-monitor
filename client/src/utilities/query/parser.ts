@@ -1,4 +1,4 @@
-import { TokenKind as TK, AbstractSyntaxTree as AST } from './tokens'
+import { TokenKind as TK, AbstractSyntaxTree as AST, Query, QuerySortOption } from './tokens'
 import { lexit } from './lexer'
 
 import { expectSingleResult, expectEOF, Token } from 'typescript-parsec'
@@ -10,7 +10,7 @@ const EXP1 = rule<TK, AST>()
 const LEAF = rule<TK, AST>()
 
 // Define leafs
-const applyValue = (value: Token<any>) => { console.log('val', value.text.slice(1,-1)); return { ...value, text: value.text[0] === '"' ? value.text.slice(1,-1) : value.text } }
+const applyValue = (value: Token<any>) => ({ ...value, text: value.text[0] === '"' ? value.text.slice(1,-1) : value.text })
 const parseValue = apply(tok(TK.Value), applyValue)
 const parseOption = seq(
   tok(TK.Key),
@@ -67,14 +67,42 @@ EXP1.setPattern(
   lrec_sc(LEAF, seq(str('and'), EXP), applyExpr)
 )
 
-const parser = EXP
+const applySort = ([_o, _c, value]: any): QuerySortOption => {
+  return {
+    strategy: value && value.text.split('.')[0] as string,
+    asc_order: value && value.text.split('.').length > 1 ? value.text.split('.')[1] !== 'desc' : true,
+  }
+}
+const parseSort = apply(seq(tok(TK.SortKey), tok(TK.Colon), tok(TK.Value)), applySort)
 
-export function parse(input: string): AST {
+const verifySortStrategy = (strategy: string) => {
+  if (!['name', 'status', 'rundown'].includes(strategy)) {
+    throw new Error(`Unexpected order '${strategy}'.`)
+  }
+}
+
+const applyParser = ([filter, sort]: any): Query => {
+  if (sort) verifySortStrategy(sort.strategy)
+  return {
+    filter: filter || {
+      type: 'option',
+      key: 'name',
+      value: '',
+    },
+    sort: sort || {
+      strategy: 'name',
+      asc_order: true,
+    }
+  }
+}
+const parser = apply(seq(opt_sc(EXP), opt_sc(parseSort)), applyParser)
+
+export function parse(input: string): Query {
   return expectSingleResult(
     expectEOF(
       parser.parse(
         lexit.parse(input)
       )
     )
-  ) as unknown as AST
+  )
 }
