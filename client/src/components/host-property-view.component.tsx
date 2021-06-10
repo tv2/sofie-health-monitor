@@ -16,6 +16,7 @@ import './host-property-view.component.scss'
 import RawLogo from '../../assets/images/code.svg'
 import CloseLogo from '../../assets/images/x-circle.svg'
 import CurrentLogo from '../../assets/images/eye.svg'
+import ExternalLinkLogo from '../../assets/images/external-link.svg'
 
 function HostPropertyView({ panel, target }: any) {
   const dispatch = useDispatch()
@@ -43,16 +44,22 @@ function HostPropertyView({ panel, target }: any) {
       <ReflexContainer orientation="horizontal">
         <ReflexElement className="c-host-property-view__properties">
 
-          <header>
-            <div className="closePanel">
-              <a onClick={() => dispatch(removePropertyHost({ panel }))}><img src={CloseLogo} /></a>
+          <div className="c-host-property-view__toolbox">
+            <div className={`setCurrent ${currentPanel === panel ? 'active' : ''}`}>
+              <a onClick={() => dispatch(setCurrentPropertyPanel(panel))}><img src={CurrentLogo} /></a>
+            </div>
+            <div className="extLink">
+              <a href={`http://${target}.tv2.local`} target="_blank"><img src={ExternalLinkLogo} /></a>
             </div>
             <div className={`toggleRaw ${showRaw ? 'active' : ''}`}>
               <a onClick={() => setShowRaw((oldRaw: boolean) => !oldRaw)}><img src={RawLogo} /></a>
             </div>
-            <div className={`setCurrent ${currentPanel === panel ? 'active' : ''}`}>
-              <a onClick={() => dispatch(setCurrentPropertyPanel(panel))}><img src={CurrentLogo} /></a>
+            <div className="closePanel">
+              <a onClick={() => dispatch(removePropertyHost({ panel }))}><img src={CloseLogo} /></a>
             </div>
+          </div>
+
+          <header>
             <h2>{ target }</h2>
             <div>
               <Status type="health" status={host.state.health.status} />

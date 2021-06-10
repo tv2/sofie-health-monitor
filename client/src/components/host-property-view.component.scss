@@ -10,72 +10,77 @@
     max-height: 100%;
   }
 
+  &__toolbox {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+  }
+
   &__properties {
     padding: 20px;
+
+    .closePanel, .setCurrent, .extLink {
+      padding: 8px 16px 8px 0;
+
+      a {
+        display: block;
+        cursor: pointer;
+        padding: 2px 4px;
+        border-radius: 16px;
+        background-color: rgba(#db3758, 0);
+        transition: background-color .2s;
+
+        img {
+          height: 28px;
+          opacity: 1;
+          transition: opacity .2s;
+        }
+
+        &:hover img {
+          opacity: .4;
+        }
+      }
+
+      &.active a {
+        cursor: default;
+        background-color: rgba(#db3758, 0.5);
+
+        img {
+          opacity: 0.4;
+        }
+      }
+    }
+
+    .toggleRaw {
+      padding: 8px 16px 8px 0;
+
+      img {
+        height: 28px;
+      }
+
+      a {
+        display: block;
+        cursor: pointer;
+        opacity: 1;
+        transition: opacity .2s;
+        transition: transform .2s;
+        transform: rotate(0deg);
+
+        &:hover {
+          opacity: .4;
+        }
+      }
+
+      &.active a {
+        transform: rotate(90deg);
+      }
+    }
 
     header {
       display: flex;
       align-items: center;
-
-      .closePanel, .setCurrent {
-        padding: 8px 16px 8px 0;
-
-        img {
-          height: 24px;
-        }
-
-        a {
-          display: block;
-          cursor: pointer;
-          padding: 2px 4px;
-          border-radius: 16px;
-          background-color: rgba(#db3758, 0);
-          transition: background-color .2s;
-
-          img {
-            opacity: 1;
-            transition: opacity .2s;
-          }
-
-          &:hover img {
-            opacity: .4;
-          }
-        }
-
-        &.active a {
-          cursor: default;
-          background-color: rgba(#db3758, 0.5);
-
-          img {
-            opacity: 0.4;
-          }
-        }
-      }
-
-      .toggleRaw {
-        padding: 8px 16px 8px 0;
-
-        img {
-          height: 24px;
-        }
-
-        a {
-          display: block;
-          cursor: pointer;
-          opacity: 1;
-          transition: opacity .2s;
-          transition: transform .2s;
-          transform: rotate(0deg);
-
-          &:hover {
-            opacity: .4;
-          }
-        }
-
-        &.active a {
-          transform: rotate(90deg);
-        }
-      }
 
       h2 {
         flex: 1 1;
