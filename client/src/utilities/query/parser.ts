@@ -2,7 +2,7 @@ import { TokenKind as TK, AbstractSyntaxTree as AST, Query, QuerySortOption } fr
 import { lexit } from './lexer'
 
 import { expectSingleResult, expectEOF, Token } from 'typescript-parsec'
-import { rule, apply, tok, opt_sc, lrec_sc, seq, alt, kmid, str } from 'typescript-parsec'
+import { rule, apply, tok, opt_sc, rep_sc, lrec_sc, seq, alt, kmid, str } from 'typescript-parsec'
 
 // Define rules
 const EXP = rule<TK, AST>()
@@ -68,12 +68,14 @@ EXP1.setPattern(
 )
 
 const applySort = ([_o, _c, value]: any): QuerySortOption => {
+  const strategy = value && value.text.split('.')[0]
+  const order = value && value.text.split('.').length > 1 ? value.text.split('.')[1] : ''
   return {
-    strategy: value && value.text.split('.')[0] as string,
-    asc_order: value && value.text.split('.').length > 1 ? value.text.split('.')[1] !== 'desc' : true,
+    strategy,
+    asc_order: order === 'asc'
   }
 }
-const parseSort = apply(seq(tok(TK.SortKey), tok(TK.Colon), tok(TK.Value)), applySort)
+const parseSort = rep_sc(apply(seq(tok(TK.SortKey), tok(TK.Colon), tok(TK.Value)), applySort))
 
 const verifySortStrategy = (strategy: string) => {
   if (!['name', 'status', 'rundown'].includes(strategy)) {
@@ -82,17 +84,17 @@ const verifySortStrategy = (strategy: string) => {
 }
 
 const applyParser = ([filter, sort]: any): Query => {
-  if (sort) verifySortStrategy(sort.strategy)
+  if (sort) sort.map((s: QuerySortOption) => verifySortStrategy(s.strategy))
   return {
     filter: filter || {
       type: 'option',
       key: 'name',
       value: '',
     },
-    sort: sort || {
+    sort: sort.length && sort || [{
       strategy: 'name',
-      asc_order: true,
-    }
+      asc_order: false,
+    }]
   }
 }
 const parser = apply(seq(opt_sc(EXP), opt_sc(parseSort)), applyParser)

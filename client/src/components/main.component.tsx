@@ -63,7 +63,6 @@ function Main() {
    * HostTableView handler for choosing a host
    */
   const currentPanel = useSelector<any,any>(state => state.hosts.currentPanel)
-  console.log(currentPanel)
   const handleHostTableViewClick = (event: any, host: any) => {
     const panel = event.metaKey || event.ctrlKey ? Date.now().toString() : currentPanel
     dispatch(setPropertyHost({ panel, host: host.name }))

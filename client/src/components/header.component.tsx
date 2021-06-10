@@ -23,7 +23,6 @@ function Header() {
       dispatch(setSortOptions(sortOptions))
       setBadQuery(false)
     } catch (e) {
-      console.error(e)
       setBadQuery(true)
     }
   }, [query])
