@@ -6,7 +6,6 @@ import store from './store'
 
 import App from './components/app.component'
 
-import 'normalize.css'
 import 'react-reflex/styles.css'
 import './index.scss'
 
