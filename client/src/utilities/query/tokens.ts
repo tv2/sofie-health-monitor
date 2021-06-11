@@ -1,5 +1,6 @@
 export enum TokenKind {
   Colon,
+  SortKey,
   Key,
   Value,
   Operator,
@@ -22,3 +23,13 @@ export type AbstractSyntaxTreeOperator = {
 }
 
 export type AbstractSyntaxTree = AbstractSyntaxTreeOption | AbstractSyntaxTreeOperator
+
+export interface Query {
+  filter: AbstractSyntaxTree,
+  sort: QuerySortOption,
+}
+
+export interface QuerySortOption {
+  strategy: string,
+  asc_order: boolean,
+}

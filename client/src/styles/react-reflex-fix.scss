@@ -1,0 +1,10 @@
+.reflex-container > .reflex-splitter {
+  border-color: #555555 !important;
+  border-width: 2px !important;
+}
+
+.reflex-container > .reflex-splitter.active,
+.reflex-container > .reflex-splitter:hover {
+  border-color: #eeeeee !important;
+}
+

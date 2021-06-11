@@ -1,13 +1,12 @@
 import { TokenKind as TK, AbstractSyntaxTree as AST, AbstractSyntaxTreeOption as ASTOpt, AbstractSyntaxTreeOperator as ASTOpe } from './tokens'
+import { getRundown } from './utilities'
 
-export const interpret = (query: AST, host: any): boolean => {
+export const interpret = (query: AST) => (host: any): boolean => {
   switch (query.type) {
     case 'operator': return interpretOperator(query, host)
     case 'option': return interpretOption(query, host)
   }
 }
-
-const getRundown = (host: any) => host.rundown && host.rundown.actives && host.rundown.actives.length > 0 ? host.rundown.actives[0] : {}
 
 function interpretOption({ key, value }: ASTOpt, host: any): boolean {
   switch (key) {
@@ -30,7 +29,7 @@ function interpretOptionIs(value: string, host: any): boolean {
 }
 
 function interpretOptionStatus(value: string, host: any): boolean {
-  return host.health.status.toLowerCase().indexOf(value.toLowerCase()) === 0
+  return host.state.health.status.toLowerCase().indexOf(value.toLowerCase()) === 0
 }
 
 function interpretOptionRundown(value: string, host: any): boolean {
@@ -51,18 +50,18 @@ function interpretOperator({ key, left, right }: ASTOpe, host: any): boolean {
     case 'and': return interpretOperatorAnd(left, right, host)
     case 'or': return interpretOperatorOr(left, right, host)
     case '!': return interpretOperatorNot(left, right, host)
-    default: throw new Error(`Unexpected operator ${key}.`)
+    default: throw new Error(`Unexpected operator '${key}'.`)
   }
 }
 
 function interpretOperatorAnd(left: AST, right: AST, host: any): boolean {
-  return interpret(left, host) && interpret(right, host)
+  return interpret(left)(host) && interpret(right)(host)
 }
 
 function interpretOperatorOr(left: AST, right: AST, host: any): boolean {
-  return interpret(left, host) || interpret(right, host)
+  return interpret(left)(host) || interpret(right)(host)
 }
 
 function interpretOperatorNot(left: AST, _: any, host: any): boolean {
-  return !interpret(left, host)
+  return !interpret(left)(host)
 }

@@ -1,4 +1,4 @@
-.App, #root, html, body {
+.c-app, #root, html, body {
   box-sizing: border-box;
   height: 100%;
   margin: 0;
@@ -9,17 +9,18 @@
   box-sizing: border-box;
 }
 
-.App {
+.c-app {
   display: flex;
   flex-direction: column;
 
-  header {
+  .c-header {
     flex: 0 1;
   }
 
-  main {
+  .c-main {
     flex: 1 1;
     box-sizing: border-box;
     overflow: hidden;
   }
 }
+
