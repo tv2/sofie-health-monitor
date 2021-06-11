@@ -1,0 +1,57 @@
+.c-host-table-view {
+  overflow: auto;
+  height: 100%;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead th {
+      position: sticky;
+      top: 0;
+
+      padding: 8px;
+      background-color: grey;
+      font-weight: bold;
+      font-size: 1.1em;
+      color: white;
+    }
+
+    tbody {
+      tr {
+        cursor: pointer;
+
+        &:nth-child(2n) {
+          background-color: lightgrey;
+        }
+
+        &:hover {
+          background-color: grey;
+        }
+
+        &.not-content {
+          cursor: default !important;
+          background-color: transparent !important;
+
+          td {
+            padding: 30px;
+          }
+        }
+
+
+        &.current {
+          background-color: #444444;
+          color: white;
+        }
+      }
+
+      td {
+        padding: 10px;
+        text-align: center;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+

@@ -1,13 +1,12 @@
 {
   "name": "sofie-health-monitor",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "",
   "scripts": {
     "install": "(cd server && npm i); (cd client && npm i)",
     "build-client": "cd client && npm run build",
     "build-server": "cd server && npm run build",
     "build": "npm run build-client && npm run build-server",
-    "prestart": "npm run build",
     "start": "cd server && npm run start",
     "dev-client": "cd client && npm run dev",
     "dev-server": "cd server && npm run dev",
