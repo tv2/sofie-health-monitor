@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/tv2/sofie-health-monitor/compare/v1.1.0...v1.2.0) (2021-06-11)
+
+
+### Features
+
+* Feat/refactor client to redux ([#6](https://github.com/tv2/sofie-health-monitor/issues/6)) ([abf0b9f](https://github.com/tv2/sofie-health-monitor/commit/abf0b9f6f599773fecb5aeaebe2f2a14c43a685a))
+
+
+### Bug Fixes
+
+* type inconsistency in Header (client). ([e6f1c43](https://github.com/tv2/sofie-health-monitor/commit/e6f1c43206d1a7e451018db0d3300451ddf5ea75))
+
 ## 1.1.0 (2021-06-08)
 
 
