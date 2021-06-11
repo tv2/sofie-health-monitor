@@ -7,7 +7,7 @@ import DocumentationView from './documentation-view.component'
 
 import { interpret, sort } from '../utilities/query'
 
-import { setDisplayHosts, setPropertyHost } from '../actions/hosts.actions'
+import { setDisplayHosts, setPropertyHost, setCurrentPropertyPanel } from '../actions/hosts.actions'
 import { toggleDocumentation } from '../actions/documentation.actions'
 
 import {
@@ -66,6 +66,12 @@ function Main() {
   const handleHostTableViewClick = (event: any, host: any) => {
     const panel = event.metaKey || event.ctrlKey ? Date.now().toString() : currentPanel
     dispatch(setPropertyHost({ panel, host: host.name }))
+
+    // Check if currentPanel is set
+    const noCurrent = hosts.property.filter(({ panel }: any) => panel === currentPanel).length === 0
+    if (noCurrent) {
+      dispatch(setCurrentPropertyPanel(panel))
+    }
   }
 
   /**
