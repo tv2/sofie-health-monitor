@@ -49,7 +49,7 @@ function Main() {
       if (window.innerWidth < 1100 && splitOrientationRef.current === 'vertical') {
         setSplitOrientation('horizontal')
         splitOrientationRef.current = 'horizontal'
-      } else if (window >= 1100 && splitOrientationRef.current === 'horizontal') {
+      } else if (window.innerWidth >= 1100 && splitOrientationRef.current === 'horizontal') {
         setSplitOrientation('vertical')
         splitOrientationRef.current = 'vertical'
       }

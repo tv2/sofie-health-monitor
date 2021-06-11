@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/tv2/sofie-health-monitor/compare/v1.2.0...v1.2.1) (2021-06-11)
+
+
+### Bug Fixes
+
+* Missing .innerWidth for splitOrientation in client main.component. ([fa0f3b8](https://github.com/tv2/sofie-health-monitor/commit/fa0f3b8551e181c54dbabe42bb9869d39046bcc1))
+
 ## [1.2.0](https://github.com/tv2/sofie-health-monitor/compare/v1.1.0...v1.2.0) (2021-06-11)
 
 
