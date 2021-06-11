@@ -11,7 +11,7 @@ const LEAF = rule<TK, AST>()
 
 // Define leafs
 const applyValue = (value: Token<any>) => ({ ...value, text: value.text[0] === '"' ? value.text.slice(1,-1) : value.text })
-const parseValue = apply(tok(TK.Value), applyValue)
+const parseValue = apply(alt(tok(TK.Value), str('or'), str('and')), applyValue)
 const parseOption = seq(
   tok(TK.Key),
   tok(TK.Colon),
@@ -93,7 +93,7 @@ const applyParser = ([filter, sort]: any): Query => {
     },
     sort: sort.length && sort || [{
       strategy: 'name',
-      asc_order: false,
+      asc_order: true,
     }]
   }
 }
