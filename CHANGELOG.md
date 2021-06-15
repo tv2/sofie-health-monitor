@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.2](https://github.com/tv2/sofie-health-monitor/compare/v1.2.1...v1.2.2) (2021-06-15)
+
+
+### Bug Fixes
+
+* Host table did not selected/open hosts. ([9d5035d](https://github.com/tv2/sofie-health-monitor/commit/9d5035df5ce3a9a1b4b2cd3711efb3754633d48a))
+
 ### [1.2.1](https://github.com/tv2/sofie-health-monitor/compare/v1.2.0...v1.2.1) (2021-06-11)
 
 
