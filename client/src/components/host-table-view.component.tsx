@@ -25,7 +25,7 @@ function HostTableView ({ selectedHosts, hosts, onClick }: any) {
               const rundownStatus = host.rundown === null ? 'Loading...' : (rundown.active ? (rundown.rehearsal ? 'REHEARSAL' : 'ACTIVE') : 'INACTIVE' ) 
               const healthStatus = host.health === null ? 'Loading...' : host.state.health.status
               return (
-                <tr key={host.name} className={ selectedHosts.includes(host.name) ? 'current' : ''} onClick={ event => onClick(event, host) }>
+                <tr key={host.name} className={ selectedHosts.map(({ host: name }: any) => name).includes(host.name) ? 'current' : ''} onClick={ event => onClick(event, host) }>
                   <td key={`${host.name}-name.`}>{ host.name }</td>
                   <td key={`${host.name}-updated.`}>{ moment(host.state.health.updated).format('DD-MM-YYYY HH:mm:ss') }</td>
                   <td key={`${host.name}-rundown`}>
