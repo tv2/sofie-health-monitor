@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.4](https://github.com/tv2/sofie-health-monitor/compare/v1.2.3...v1.2.4) (2021-06-18)
+
+
+### Bug Fixes
+
+* Changed filebeat message from string[] to string. ([97ecc14](https://github.com/tv2/sofie-health-monitor/commit/97ecc14987c5446bef1b0f6faa36f5c6f6371fd9))
+
 ### [1.2.3](https://github.com/tv2/sofie-health-monitor/compare/v1.2.2...v1.2.3) (2021-06-18)
 
 ### [1.2.2](https://github.com/tv2/sofie-health-monitor/compare/v1.2.1...v1.2.2) (2021-06-15)
