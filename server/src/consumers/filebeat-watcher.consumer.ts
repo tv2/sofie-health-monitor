@@ -18,20 +18,20 @@ export class FilebeatWatcherConsumer extends EventConsumer {
       case 'WARNING': return this.warn({
         status,
         host: host.name,
-        message: health._internal.messages,
+        message: health._internal.messages.join('\n'),
       })
 
       case 'FAIL': return this.error({
         status,
         host: host.name,
-        message: health._internal.messages,
+        message: health._internal.messages.join('\n'),
       })
 
       default: return this.error({
         status,
         host: host.name,
         unknownStatus: true,
-        message: health._internal.messages,
+        message: health._internal.messages.join('\n'),
       })
     }
   }
