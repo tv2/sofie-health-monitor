@@ -24,13 +24,13 @@ export class ScraperConsumer extends EventConsumer {
     if (event == 'hosts-registered') {
       this.hosts = data
       this.timer = setInterval(() => emit('scrape'), this.interval)
-      this.log('initial setup with hosts:\n ', this.hosts.map((host:any) => host.name).join('\n  '))
+      this.info('initial setup with hosts:\n ', this.hosts.map((host:any) => host.name).join('\n  '))
     }
     this.scrape(emit)
   }
 
   scrape(emit: ConsumerEvent['emit']) {
-    this.log('Scraping started...')
+    this.info('Scraping started...')
     const sources = [
       ...this.hosts.map((host: any) => fetch(host.endpoints.health)
         .then(data => data.json())
@@ -48,7 +48,7 @@ export class ScraperConsumer extends EventConsumer {
       .then(results => results.forEach(result => {
         if (result.status === 'rejected') this.error(`Failed scraping from ${result.reason.host.name}(${result.reason.type}) with:\n  ${result.reason.error}`)
       }))
-      .catch(this.log).finally(() => this.log('Scraping done.'))
+      .catch(this.info).finally(() => this.info('Scraping done.'))
   }
 
   prepareHealthData(health: any) {

@@ -18,7 +18,7 @@ export class ClientBroadcastConsumer extends EventConsumer {
       case 'state-cache': return this._stateCache(data)
       case 'state-created':
       case 'state-changed': return this._stateChanged(data)
-      default: this.log(`Uncaught event: ${event}`)
+      default: this.warn(`Uncaught event: ${event}`)
     }
   }
 
@@ -35,7 +35,7 @@ export class ClientBroadcastConsumer extends EventConsumer {
 
   _webServerStarted({ data: httpServer, emit }: ConsumerEvent) {
     if (this.socketServer) {
-      this.log('Socket server already running.')
+      this.info('Socket server already running.')
       return
     }
 
@@ -48,22 +48,23 @@ export class ClientBroadcastConsumer extends EventConsumer {
     this.socketServer.on('connection', (socket: Socket) => {
       // TODO: Make options handshake first
       this.clients[socket.id] = { initialized: false, socket }
-      this.log(`New connection with id: ${socket.id}`)
+      this.info(`New connection with id: ${socket.id}`)
       emit('state-cache-request')
 
       socket.on('dicsonnect', () => { delete this.clients[socket.id] })
     })
-
   }
 
   _stateChanged(data: any) {
     if (!this.socketServer) {
-      this.log(`ERROR: Can't broadcast without socket server.`)
+      this.error(`ERROR: Can't broadcast without socket server.`)
       return
     }
+
     Object.values(this.clients).forEach(client => {
       client.socket.emit('host-changed', data)
     })
-    this.log(`Received data for ${data.host}`)
+
+    this.info(`Received ${data.type} data for ${data.host}`)
   }
 }
