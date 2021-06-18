@@ -22,7 +22,7 @@ export class HostStateWatcherConsumer extends EventConsumer {
   }
 
   _cacheRequest({ data, emit }: ConsumerEvent) {
-    this.log('State cache emitted.')
+    this.info('State cache emitted.')
     emit('state-cache', this.hostStates)
   }
 
@@ -33,12 +33,12 @@ export class HostStateWatcherConsumer extends EventConsumer {
     }
   }
 
-  _dataHealth({ host, data: state }: any, emit: any) {
+  _dataHealth({ host, data: state, type }: any, emit: any) {
     const createdState = this._ensureState({ type: 'health', host, state })
 
     if (createdState) {
-      this.log(`Initial state for ${host.name} (health) has been stored.`)
-      emit('state-created', { host: host.name, state: this.hostStates[host.name] })
+      this.info(`Initial state for ${host.name} (health) has been stored.`)
+      emit('state-created', { host: host.name, type, state: this.hostStates[host.name] })
 
     } else {
       const stateDiff = (diff(this.hostStates[host.name].health, state) || [])
@@ -47,18 +47,18 @@ export class HostStateWatcherConsumer extends EventConsumer {
 
       if (hasChanges) {
         this.hostStates[host.name].health = state
-        this.log(`State for ${host.name} (health) has changed.`)
-        emit('state-changed', { host: host.name, state: this.hostStates[host.name] })
+        this.info(`State for ${host.name} (health) has changed.`)
+        emit('state-changed', { host: host.name, type, state: this.hostStates[host.name] })
       }
     }
   }
 
-  _dataRundown({ host, data: state }: any, emit: any) {
+  _dataRundown({ host, data: state, type }: any, emit: any) {
     const createdState = this._ensureState({ type: 'rundown', host, state: { actives: state } })
 
     if (createdState) {
-      this.log(`Initial state for ${host.name} (rundown) has been stored.`)
-      emit('state-created', { host: host.name, state: this.hostStates[host.name] })
+      this.info(`Initial state for ${host.name} (rundown) has been stored.`)
+      emit('state-created', { host: host.name, type, state: this.hostStates[host.name] })
 
     } else {
 
@@ -67,8 +67,8 @@ export class HostStateWatcherConsumer extends EventConsumer {
 
       if (hasChanges) {
         this.hostStates[host.name].rundown.actives = state
-        this.log(`State for ${host.name} (rundown) has changed.`, stateDiff)
-        emit('state-changed', { host: host.name, state: this.hostStates[host.name] })
+        this.info(`State for ${host.name} (rundown) has changed.`, stateDiff)
+        emit('state-changed', { host: host.name, type, state: this.hostStates[host.name] })
       }
     }
   }

@@ -20,6 +20,11 @@ const hostStateWatcherConsumer = new HostStateWatcherConsumer()
 register('data', hostStateWatcherConsumer)
 register('state-cache-request', hostStateWatcherConsumer)
 
+// Process data to filebeat
+import { FilebeatWatcherConsumer } from './filebeat-watcher.consumer'
+const filebeatWatcherConsumer = new FilebeatWatcherConsumer()
+register('data', filebeatWatcherConsumer)
+
 // Client broadcast
 import { ClientBroadcastConsumer } from './client-broadcast.consumer'
 const clientBroadcast = new ClientBroadcastConsumer()

@@ -11,6 +11,7 @@ const formatConfig = {
     'info':  3,
   },
   colors: {
+    'info': 'green',
     'error': 'red',
     'warn': 'orange',
     'debug': 'cyan',
@@ -24,17 +25,27 @@ logTransports.push(
   new transports.Console({
     format: format.combine(
       environment === 'local' ?
-        format.printf(({ level, message, timestamp, deligate }) => `[${ timestamp }] [${ level }${ deligate ? `:${deligate}` : ''}] ${ message }`) :
-        format.json(),
+        format.printf(({ level, message, timestamp, delegate }) => `[${ timestamp }] [${ level }${ delegate ? `:${delegate}` : ''}] ${ message }`) :
+          format.json(),
       format.colorize({ all: true, colors: formatConfig.colors }),
     ),
   })
 )
 
+const environmentFormatter = environment === 'local' ?
+  format.combine(
+    format.timestamp(),
+    format(({ message, _message, ...data }: any) => ({
+      ...data,
+      message: !message && _message ? _message : message
+    }))()
+  ) :
+  format(({ delegate, _message, ...data }: any) => data)()
+
 const loggerConfiguration = {
   level: logLevel,
   levels: formatConfig.levels,
-  format: format.timestamp(),
+  format: environmentFormatter,
   transports: logTransports,
 }
 

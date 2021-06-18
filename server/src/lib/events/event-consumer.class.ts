@@ -10,23 +10,35 @@ export interface ConsumerEvent {
 export abstract class EventConsumer {
   abstract consume(event: ConsumerEvent): void
 
-  log(...data: any[]): void {
-    this.info(...data)
+  log(data: any): void {
+    logger.log(data)
   }
 
   info(...data: any[]): void {
-    logger.log({ deligate: this.constructor.name, message: data.map(x => x.toString()).join(' '), level: 'info' })
+    const dataObject = this._getDataObject(data)
+    logger.log({ delegate: this.constructor.name, message: '', level: 'info', ...dataObject })
   }
 
   debug(...data: any[]): void {
-    logger.log({ deligate: this.constructor.name, message: data.map(x => x.toString()).join(' '), level: 'debug' })
+    const dataObject = this._getDataObject(data)
+    logger.log({ delegate: this.constructor.name, message: '', level: 'debug', ...dataObject })
   }
 
   warn(...data: any[]): void {
-    logger.log({ deligate: this.constructor.name, message: data.map(x => x.toString()).join(' '), level: 'warn' })
+    const dataObject = this._getDataObject(data)
+    logger.log({ delegate: this.constructor.name, message: '', level: 'warn', ...dataObject })
   }
 
   error(...data: any[]): void {
-    logger.log({ deligate: this.constructor.name, message: data.map(x => x.toString()).join(' '), level: 'error' })
+    const dataObject = this._getDataObject(data)
+    logger.log({ delegate: this.constructor.name, message: '', level: 'error', ...dataObject })
+  }
+
+  protected _getDataObject(data: any[]) {
+    if (data.length === 1 && typeof data[0] === 'object' && data[0] !== null) {
+      return { ...data[0], _message: JSON.stringify(data[0]) }
+    } else {
+      return { _message: data.map(x => x.toString()).join(' ') }
+    }
   }
 }

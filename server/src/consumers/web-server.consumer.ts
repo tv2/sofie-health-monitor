@@ -18,7 +18,7 @@ export class WebServerConsumer extends EventConsumer {
       app.use('/', express.static('../client/dist'))
       this.server = new Server(app)
       this.server.listen(this.port, () => {
-        this.log(`Webserver started at http://localhost:${this.port}`)
+        this.info(`Webserver started at http://localhost:${this.port}`)
         emit('web-server-started', this.server)
       })
     }
