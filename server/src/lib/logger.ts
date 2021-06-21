@@ -23,12 +23,11 @@ const logTransports: any = []
 // Console transporter
 logTransports.push(
   new transports.Console({
-    format: format.combine(
-      environment === 'local' ?
-        format.printf(({ level, message, timestamp, delegate }) => `[${ timestamp }] [${ level }${ delegate ? `:${delegate}` : ''}] ${ message }`) :
-          format.json(),
-      format.colorize({ all: true, colors: formatConfig.colors }),
-    ),
+    format: environment === 'local' ? format.combine(
+        format.printf(({ level, message, timestamp, delegate }) => `[${ timestamp }] [${ level }${ delegate ? `:${delegate}` : ''}] ${ message }`),
+        format.colorize({ all: true, colors: formatConfig.colors }),
+      ) :
+      format.json(),
   })
 )
 
