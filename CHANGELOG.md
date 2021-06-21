@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.5](https://github.com/tv2/sofie-health-monitor/compare/v1.2.4...v1.2.5) (2021-06-21)
+
+
+### Bug Fixes
+
+* Removed ANSI color codes from server production logging. ([03444e8](https://github.com/tv2/sofie-health-monitor/commit/03444e805cb7311aa734c86acca75fe75ec4cde0))
+
 ### [1.2.4](https://github.com/tv2/sofie-health-monitor/compare/v1.2.3...v1.2.4) (2021-06-18)
 
 
