@@ -93,3 +93,4 @@ jobs:
 
       - name: Show Deployment Response
         run: echo ${{ steps.deploymentRequest.outputs.response }}
+        fail_when: steps.deploymentRequest.outputs.response.status != 'success'
