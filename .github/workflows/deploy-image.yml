@@ -91,6 +91,7 @@ jobs:
           password: ${{ secrets.DEPLOYMENT_PASSWORD }}
           data: "{\"target\":\"${{ secrets.DEPLOYMENT_TARGET }}\"}"
 
-      - name: Show Deployment Response
-        run: echo ${{ steps.deploymentRequest.outputs.response }}
-        failed_when: steps.deploymentRequest.outputs.response.status != 'success'
+      - name: Deployment failed
+        fail:
+          msg: ${{ steps.deploymentRequest.outputs.response }}
+        when: steps.deploymentRequest.outputs.response.status != 'success'
