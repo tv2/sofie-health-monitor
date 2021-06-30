@@ -92,6 +92,8 @@ jobs:
           data: "{\"target\":\"${{ secrets.DEPLOYMENT_TARGET }}\"}"
 
       - name: Deployment failed
-        fail:
-          msg: ${{ steps.deploymentRequest.outputs.response }}
-        when: steps.deploymentRequest.outputs.response.status != 'success'
+        if: ${{ steps.deploymentRequest.outputs.response.status != 'success' }}
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed(steps.deploymentRequest.outputs.response)
