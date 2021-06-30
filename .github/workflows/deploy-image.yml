@@ -92,5 +92,5 @@ jobs:
           data: "{\"target\":\"${{ secrets.DEPLOYMENT_TARGET }}\"}"
 
       - name: Deployment failed
-        if: ${{ !contains(steps.deploymentRequest.outputs.response.status, 'success') }}
-        run: echo ${{ steps.deploymentRequest.outputs.response.status }}
+        if: ${{ !contains(steps.deploymentRequest.outputs.response, 'success') }}
+        run: echo ${{ steps.deploymentRequest.outputs.response }} && exit 1
