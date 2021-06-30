@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.10](https://github.com/tv2/sofie-health-monitor/compare/v1.2.9...v1.2.10) (2021-06-30)
+
+
+### Bug Fixes
+
+* Added non-zero exit code for failed GHA deployment. ([7410178](https://github.com/tv2/sofie-health-monitor/commit/7410178723432f1b9b2f5bcbc83ea9ae1d2d639a))
+* Not contains success GHA deployment. ([e2d0138](https://github.com/tv2/sofie-health-monitor/commit/e2d01385a6d453e4439b49358726b10f31880cce))
+
 ### [1.2.9](https://github.com/tv2/sofie-health-monitor/compare/v1.2.8...v1.2.9) (2021-06-30)
 
 ### [1.2.8](https://github.com/tv2/sofie-health-monitor/compare/v1.2.7...v1.2.8) (2021-06-30)
