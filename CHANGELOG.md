@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.7](https://github.com/tv2/sofie-health-monitor/compare/v1.2.6...v1.2.7) (2021-06-30)
+
+
+### Bug Fixes
+
+* Added deployment request to GHA (no fail feedback yet). ([db73b50](https://github.com/tv2/sofie-health-monitor/commit/db73b5077e2317cebdbc0179683b9b7ca486b08d))
+
 ### [1.2.6](https://github.com/tv2/sofie-health-monitor/compare/v1.2.5...v1.2.6) (2021-06-30)
 
 
