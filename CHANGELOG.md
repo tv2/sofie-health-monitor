@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.6](https://github.com/tv2/sofie-health-monitor/compare/v1.2.5...v1.2.6) (2021-06-30)
+
+
+### Bug Fixes
+
+* Client now logs the package version to console on start. ([ea53593](https://github.com/tv2/sofie-health-monitor/commit/ea53593f858a81f05d4fbcd66e86b77489920925))
+* The order of logging levels and local log level changed in server. ([9496ea7](https://github.com/tv2/sofie-health-monitor/commit/9496ea7f1f4baa64070f6b208bd4cfa914ba6908))
+
 ### [1.2.5](https://github.com/tv2/sofie-health-monitor/compare/v1.2.4...v1.2.5) (2021-06-21)
 
 

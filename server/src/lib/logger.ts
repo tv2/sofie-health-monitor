@@ -1,14 +1,14 @@
 import { createLogger, transports, format } from 'winston'
 
 const environment = process.env.NODE_ENV || 'local'
-const logLevel    = process.env.LOG_LEVEL || (environment === 'local' ? 'info' : 'warn')
+const logLevel    = process.env.LOG_LEVEL || (environment === 'local' ? 'debug' : 'warn')
 
 const formatConfig = {
   levels: {
     'error': 0,
     'warn':  1,
-    'debug': 2,
-    'info':  3,
+    'info':  2,
+    'debug': 3,
   },
   colors: {
     'info': 'green',
