@@ -11,8 +11,7 @@
     "dev-client": "cd client && yarn dev",
     "dev-server": "cd server && yarn dev",
     "dev": "concurrently --kill-others \"yarn dev-server\" \"yarn dev-client\"",
-    "release": "standard-version",
-    "prepareChangelog": "standard-version --prerelease"
+    "format": "prettier --write */src"
   },
   "repository": {
     "type": "git",
@@ -26,6 +25,6 @@
   "homepage": "https://github.com/tv2/sofie-health-monitor#readme",
   "devDependencies": {
     "concurrently": "^6.2.0",
-    "standard-version": "^9.3.0"
+    "prettier": "^2.5.0"
   }
 }
