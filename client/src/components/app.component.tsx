@@ -16,7 +16,9 @@ function App() {
   // Setup websocket connection
   useEffect(() => {
     const socket = HealthBroker.setup(dispatch)(config.endpoints.backend)
-    return () => { socket.disconnect() }
+    return () => {
+      socket.disconnect()
+    }
     // TODO: add dispatch
   }, [])
 

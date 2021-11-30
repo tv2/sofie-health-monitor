@@ -1,9 +1,9 @@
 export interface HostDefinition {
-  name: string,
+  name: string
   endpoints: {
-    health: string,
-    rundown: string,
-  },
+    health: string
+    rundown: string
+  }
 }
 
 const hosts = require('../../data/hosts.json')

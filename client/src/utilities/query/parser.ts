@@ -10,19 +10,19 @@ const EXP1 = rule<TK, AST>()
 const LEAF = rule<TK, AST>()
 
 // Define leafs
-const applyValue = (value: Token<any>) => ({ ...value, text: value.text[0] === '"' ? value.text.slice(1,-1) : value.text })
+const applyValue = (value: Token<any>) => ({
+  ...value,
+  text: value.text[0] === '"' ? value.text.slice(1, -1) : value.text,
+})
 const parseValue = apply(alt(tok(TK.Value), str('or'), str('and')), applyValue)
-const parseOption = seq(
-  tok(TK.Key),
-  tok(TK.Colon),
-  alt(parseValue, tok(TK.Key)),
-)
+const parseOption = seq(tok(TK.Key), tok(TK.Colon), alt(parseValue, tok(TK.Key)))
 
-const applyOption = ([key, _, value]: any) => ({
-  type: 'option',
-  key: key.text,
-  value: value.text,
-}) as AST
+const applyOption = ([key, _, value]: any) =>
+  ({
+    type: 'option',
+    key: key.text,
+    value: value.text,
+  } as AST)
 
 const nameLiteral = parseValue
 
@@ -32,7 +32,7 @@ const applyNameLiteral = (name: Token<any>): AST => ({
   value: name.text,
 })
 
-const applyNot = ([_, value]:[any, AST]): AST => {
+const applyNot = ([_, value]: [any, AST]): AST => {
   return {
     type: 'operator',
     key: '!',
@@ -58,21 +58,17 @@ const applyExpr = (left: AST, [op, right]: [Token<any>, AST]): AST => ({
   right,
 })
 
-EXP.setPattern(
-  lrec_sc(EXP1, seq(str('or'), EXP), applyExpr)
-)
+EXP.setPattern(lrec_sc(EXP1, seq(str('or'), EXP), applyExpr))
 
 // Define first Expr layer
-EXP1.setPattern(
-  lrec_sc(LEAF, seq(str('and'), EXP), applyExpr)
-)
+EXP1.setPattern(lrec_sc(LEAF, seq(str('and'), EXP), applyExpr))
 
 const applySort = ([_o, _c, value]: any): QuerySortOption => {
   const strategy = value && value.text.split('.')[0]
   const order = value && value.text.split('.').length > 1 ? value.text.split('.')[1] : ''
   return {
     strategy,
-    asc_order: order === 'asc'
+    asc_order: order === 'asc',
   }
 }
 const parseSort = rep_sc(apply(seq(tok(TK.SortKey), tok(TK.Colon), tok(TK.Value)), applySort))
@@ -91,20 +87,16 @@ const applyParser = ([filter, sort]: any): Query => {
       key: 'name',
       value: '',
     },
-    sort: sort.length && sort || [{
-      strategy: 'name',
-      asc_order: true,
-    }]
+    sort: (sort.length && sort) || [
+      {
+        strategy: 'name',
+        asc_order: true,
+      },
+    ],
   }
 }
 const parser = apply(seq(opt_sc(EXP), opt_sc(parseSort)), applyParser)
 
 export function parse(input: string): Query {
-  return expectSingleResult(
-    expectEOF(
-      parser.parse(
-        lexit.parse(input)
-      )
-    )
-  )
+  return expectSingleResult(expectEOF(parser.parse(lexit.parse(input))))
 }

@@ -1,4 +1,4 @@
-import SocketClient, { Socket } from 'socket.io-client'
+import SocketClient, { Socket } from 'socket.io-client'
 
 import { setHost } from '../actions/hosts.actions'
 

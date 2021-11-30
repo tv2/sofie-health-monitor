@@ -10,6 +10,5 @@ export const lexit = buildLexer([
   [true, /^(?:[a-zA-Z_0-9-\.]+|"(?:[^"\\]|\\.)*")(?!\s*:)/g, TokenKind.Value],
   [true, /^\(/g, TokenKind.LParen],
   [true, /^\)/g, TokenKind.RParen],
-  [false, /^\s+/g, TokenKind.Space]
+  [false, /^\s+/g, TokenKind.Space],
 ])
-
