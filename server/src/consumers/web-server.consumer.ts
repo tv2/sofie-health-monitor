@@ -3,7 +3,6 @@ import express from 'express'
 import { Server } from 'http'
 
 export class WebServerConsumer extends EventConsumer {
-
   server?: Server
   port: number
 

@@ -7,7 +7,6 @@
     "serve": "vite --port 3000 preview"
   },
   "dependencies": {
-    "i": "^0.3.6",
     "moment": "^2.29.1",
     "npm": "^7.15.1",
     "react": "^17.0.0",
@@ -16,6 +15,7 @@
     "react-reflex": "^4.0.1",
     "redux": "^4.1.0",
     "socket.io-client": "^4.1.2",
+    "splitpanes": "^3.0.6",
     "typescript-parsec": "^0.3.2"
   },
   "devDependencies": {

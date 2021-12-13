@@ -3,16 +3,15 @@
   "version": "1.2.10",
   "description": "",
   "scripts": {
-    "install": "(cd server && npm i); (cd client && npm i)",
-    "build-client": "cd client && npm run build",
-    "build-server": "cd server && npm run build",
-    "build": "npm run build-client && npm run build-server",
-    "start": "cd server && npm run start",
-    "dev-client": "cd client && npm run dev",
-    "dev-server": "cd server && npm run dev",
-    "dev": "concurrently --kill-others \"npm run dev-server\" \"npm run dev-client\"",
-    "release": "standard-version",
-    "prepareChangelog": "standard-version --prerelease"
+    "install": "(cd server && yarn install); (cd client && yarn install)",
+    "build-client": "cd client && yarn build",
+    "build-server": "cd server && yarn build",
+    "build": "yarn build-client && yarn build-server",
+    "start": "cd server && yarn start",
+    "dev-client": "cd client && yarn dev",
+    "dev-server": "cd server && yarn dev",
+    "dev": "concurrently --kill-others \"yarn dev-server\" \"yarn dev-client\"",
+    "format": "prettier --write */src"
   },
   "repository": {
     "type": "git",
@@ -26,6 +25,6 @@
   "homepage": "https://github.com/tv2/sofie-health-monitor#readme",
   "devDependencies": {
     "concurrently": "^6.2.0",
-    "standard-version": "^9.3.0"
+    "prettier": "^2.5.0"
   }
 }

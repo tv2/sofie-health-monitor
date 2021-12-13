@@ -1,4 +1,3 @@
-
 export enum ActionType {
   SET_HOST = 'SET_HOST',
   SET_DISPLAY_HOSTS = 'SET_DISPLAY_HOSTS',
@@ -7,15 +6,15 @@ export enum ActionType {
   SET_CURRENT_PROPERTY_PANEL = 'SET_CURRENT_PROPERTY_PANEL',
 }
 
-export function setHost(payload: { name: string, state: any }) {
+export function setHost(payload: { name: string; state: any }) {
   return { type: ActionType.SET_HOST, payload }
 }
 
-export function setDisplayHosts(payload: { name: string, state: any }[]) {
+export function setDisplayHosts(payload: { name: string; state: any }[]) {
   return { type: ActionType.SET_DISPLAY_HOSTS, payload }
 }
 
-export function setPropertyHost(payload: { panel: string, host: string }) {
+export function setPropertyHost(payload: { panel: string; host: string }) {
   return { type: ActionType.SET_PROPERTY_HOST, payload }
 }
 

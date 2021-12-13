@@ -28,11 +28,18 @@ function Header() {
   }, [query])
 
   return (
-    <header className={`c-header ${ badQuery && 'bad-query' }`}>
-      <input spellCheck={false} value={query} placeholder="Type here to filter" onInput={(event: any): any => { setQuery(event.target.value) }} />
+    <header className={`c-header ${badQuery && 'bad-query'}`}>
+      <input
+        spellCheck={false}
+        value={query}
+        placeholder="Type here to filter"
+        onInput={(event: any): any => {
+          setQuery(event.target.value)
+        }}
+      />
       <div className="c-header__documentation">
-        <a onClick={ () => dispatch(toggleDocumentation()) }>
-          <img src={ DocumentationIcon } alt="Toggle documentation"/>
+        <a onClick={() => dispatch(toggleDocumentation())}>
+          <img src={DocumentationIcon} alt="Toggle documentation" />
         </a>
       </div>
     </header>

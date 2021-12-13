@@ -2,9 +2,8 @@ import { EventConsumer, ConsumerEvent } from '../lib/events'
 import { Server, Socket } from 'socket.io'
 
 export class ClientBroadcastConsumer extends EventConsumer {
-
   socketServer: Server | null
-  clients: { [key:string]: { initialized: boolean, socket: Socket } }
+  clients: { [key: string]: { initialized: boolean; socket: Socket } }
 
   constructor() {
     super()
@@ -14,19 +13,23 @@ export class ClientBroadcastConsumer extends EventConsumer {
 
   consume({ event, data, emit }: ConsumerEvent) {
     switch (event) {
-      case 'web-server-started': return this._webServerStarted({ event, data, emit })
-      case 'state-cache': return this._stateCache(data)
+      case 'web-server-started':
+        return this._webServerStarted({ event, data, emit })
+      case 'state-cache':
+        return this._stateCache(data)
       case 'state-created':
-      case 'state-changed': return this._stateChanged(data)
-      default: this.warn(`Uncaught event: ${event}`)
+      case 'state-changed':
+        return this._stateChanged(data)
+      default:
+        this.warn(`Uncaught event: ${event}`)
     }
   }
 
   _stateCache(states: any) {
     Object.keys(this.clients)
-      .filter(clientKey => !this.clients[clientKey].initialized)
-      .forEach(clientKey => {
-        Object.entries(states).forEach(([host,state]:[string, any]) => {
+      .filter((clientKey) => !this.clients[clientKey].initialized)
+      .forEach((clientKey) => {
+        Object.entries(states).forEach(([host, state]: [string, any]) => {
           this.clients[clientKey].socket.emit('host-changed', { host, state })
         })
         this.clients[clientKey].initialized = true
@@ -41,7 +44,7 @@ export class ClientBroadcastConsumer extends EventConsumer {
 
     this.socketServer = new Server(httpServer, {
       cors: {
-        origin: '*'
+        origin: '*',
       },
     })
 
@@ -51,7 +54,9 @@ export class ClientBroadcastConsumer extends EventConsumer {
       this.info(`New connection with id: ${socket.id}`)
       emit('state-cache-request')
 
-      socket.on('dicsonnect', () => { delete this.clients[socket.id] })
+      socket.on('dicsonnect', () => {
+        delete this.clients[socket.id]
+      })
     })
   }
 
@@ -61,7 +66,7 @@ export class ClientBroadcastConsumer extends EventConsumer {
       return
     }
 
-    Object.values(this.clients).forEach(client => {
+    Object.values(this.clients).forEach((client) => {
       client.socket.emit('host-changed', data)
     })
 

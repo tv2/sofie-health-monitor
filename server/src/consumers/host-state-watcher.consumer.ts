@@ -1,12 +1,11 @@
 import { EventConsumer, ConsumerEvent } from '../lib/events'
-import { diff } from 'deep-diff'
+import { diff } from 'deep-diff'
 
 export interface HostState {
   [key: string]: any
 }
 
 export class HostStateWatcherConsumer extends EventConsumer {
-
   hostStates: { [key: string]: HostState }
 
   constructor() {
@@ -14,10 +13,12 @@ export class HostStateWatcherConsumer extends EventConsumer {
     this.hostStates = {}
   }
 
-  consume({ event, data, emit } : ConsumerEvent) {
+  consume({ event, data, emit }: ConsumerEvent) {
     switch (event) {
-      case 'data': return this._data({ event, data, emit })
-      case 'state-cache-request': return this._cacheRequest({ event, data, emit })
+      case 'data':
+        return this._data({ event, data, emit })
+      case 'state-cache-request':
+        return this._cacheRequest({ event, data, emit })
     }
   }
 
@@ -28,8 +29,10 @@ export class HostStateWatcherConsumer extends EventConsumer {
 
   _data({ data, emit }: ConsumerEvent) {
     switch (data.type) {
-      case 'health':  return this._dataHealth(data, emit)
-      case 'rundown': return this._dataRundown(data, emit)
+      case 'health':
+        return this._dataHealth(data, emit)
+      case 'rundown':
+        return this._dataRundown(data, emit)
     }
   }
 
@@ -39,10 +42,9 @@ export class HostStateWatcherConsumer extends EventConsumer {
     if (createdState) {
       this.info(`Initial state for ${host.name} (health) has been stored.`)
       emit('state-created', { host: host.name, type, state: this.hostStates[host.name] })
-
     } else {
-      const stateDiff = (diff(this.hostStates[host.name].health, state) || [])
-        //.filter(d => !(d.kind === 'E' && (d.path || []).includes('updated')))
+      const stateDiff = diff(this.hostStates[host.name].health, state) || []
+      //.filter(d => !(d.kind === 'E' && (d.path || []).includes('updated')))
       const hasChanges = stateDiff.length > 0
 
       if (hasChanges) {
@@ -59,10 +61,8 @@ export class HostStateWatcherConsumer extends EventConsumer {
     if (createdState) {
       this.info(`Initial state for ${host.name} (rundown) has been stored.`)
       emit('state-created', { host: host.name, type, state: this.hostStates[host.name] })
-
     } else {
-
-      const stateDiff =  diff(this.hostStates[host.name].rundown.actives, state) || []
+      const stateDiff = diff(this.hostStates[host.name].rundown.actives, state) || []
       const hasChanges = stateDiff.length > 0
 
       if (hasChanges) {
@@ -79,7 +79,7 @@ export class HostStateWatcherConsumer extends EventConsumer {
    */
   _ensureState({ type, host, state }: any) {
     if (!(host.name in this.hostStates)) {
-      this.hostStates[host.name] = { 
+      this.hostStates[host.name] = {
         health: null,
         rundown: null,
         [type]: state,

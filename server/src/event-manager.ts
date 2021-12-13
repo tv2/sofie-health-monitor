@@ -6,4 +6,3 @@ export const eventManager = new EventManager()
 export function register(event: string, consumer: EventConsumer): void {
   eventManager.register(event, consumer)
 }
-
