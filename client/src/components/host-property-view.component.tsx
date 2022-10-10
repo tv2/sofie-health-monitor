@@ -82,7 +82,7 @@ function HostPropertyView({ panel, target }: any) {
                       <td key={`${rundown.name}-name`}>{ rundown.name }</td>
                       <td key={`${rundown.name}-time`}>{ moment(rundown.startedPlayback).format('DD-MM-YYYY HH:mm:ss:SSS') }</td>
                       <td key={`${rundown.name}-status`}>
-                        <Status type="rundown" status={rundown.active ? (rundown.rehearsal ? 'REHEARSAL' : 'ACTIVE') : 'INACTIVE'} />
+                        <Status type="rundown" status={rundown.activationId ? (rundown.rehearsal ? 'REHEARSAL' : 'ACTIVE') : 'INACTIVE'} />
                       </td>
                     </tr>
                   )

@@ -35,9 +35,9 @@ function interpretOptionStatus(value: string, host: any): boolean {
 function interpretOptionRundown(value: string, host: any): boolean {
   const rundown = getRundown(host)
   const lcValue = value.toLowerCase()
-  if ('inactive'.indexOf(lcValue)  === 0) return !rundown.active && !rundown.rehearsal
-  if ('rehearsal'.indexOf(lcValue) === 0) return rundown.active && rundown.rehearsal
-  if ('active'.indexOf(lcValue)    === 0) return rundown.active && !rundown.rehearsal
+  if ('inactive'.indexOf(lcValue)  === 0) return !rundown.activationId && !rundown.rehearsal
+  if ('rehearsal'.indexOf(lcValue) === 0) return !!rundown.activationId && rundown.rehearsal
+  if ('active'.indexOf(lcValue)    === 0) return !!rundown.activationId && !rundown.rehearsal
   throw new Error(`Unexpected rundown value '${value}'.`)
 }
 

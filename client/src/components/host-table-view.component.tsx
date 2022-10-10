@@ -22,7 +22,7 @@ function HostTableView ({ selectedHosts, hosts, onClick }: any) {
           if (hosts && hosts.length) {
             return hosts.map((host: any) => {
               const rundown = host.state.rundown && host.state.rundown.actives && host.state.rundown.actives.length > 0 ? host.state.rundown.actives[0] : {}
-              const rundownStatus = host.rundown === null ? 'Loading...' : (rundown.active ? (rundown.rehearsal ? 'REHEARSAL' : 'ACTIVE') : 'INACTIVE' ) 
+              const rundownStatus = host.rundown === null ? 'Loading...' : (rundown.activationId ? (rundown.rehearsal ? 'REHEARSAL' : 'ACTIVE') : 'INACTIVE' ) 
               const healthStatus = host.health === null ? 'Loading...' : host.state.health.status
               return (
                 <tr key={host.name} className={ selectedHosts.map(({ host: name }: any) => name).includes(host.name) ? 'current' : ''} onClick={ event => onClick(event, host) }>

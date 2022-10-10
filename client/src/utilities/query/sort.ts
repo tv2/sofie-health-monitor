@@ -12,7 +12,7 @@ const rateStatus = (status: string) => {
 
 const rateRundown = (rundown: any) => {
   // Determine string representation
-  const lcRundown = rundown.active ? (rundown.rehearsal ? 'rehearsal' : 'active') : 'inactive'
+  const lcRundown = rundown.activationId ? (rundown.rehearsal ? 'rehearsal' : 'active') : 'inactive'
 
   switch (lcRundown) {
     case 'inactive': return 0
